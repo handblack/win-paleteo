@@ -93,7 +93,7 @@ class AuthController extends Controller
 
     
     private function authenticate2($user, $password) {
-        $ldap_usr_dom   = '@contactbpo.pe';
+        $ldap_usr_dom   = '@contact.com';
         $LDAP_LastName  = 'SIN';
         $un = strtolower(trim($user) . $ldap_usr_dom);  // => llombardi@contactbpo.pe
             $usr = User::whereEmail($un)->first();
@@ -101,6 +101,7 @@ class AuthController extends Controller
                 $usr->name      = $user;
                 $usr->lastname  = $LDAP_LastName;
                 $usr->password  = Hash::make($password);
+                $usr->save();
             }else{
                 $usr = new User();
                 $usr->name      = $user;
@@ -122,27 +123,16 @@ class AuthController extends Controller
         } 
         $ldap_host = "ldap://contact.com";
         $ldap_dn = "DC=contact,DC=com";
-        $ldap_usr_dom = '@contactbpo.pe';
+        $ldap_usr_dom = '@contact.com';
         $ldap = ldap_connect($ldap_host);
         ldap_set_option($ldap,LDAP_OPT_PROTOCOL_VERSION,3);
         ldap_set_option($ldap,LDAP_OPT_REFERRALS,0);
-        if($bind = ldap_bind($ldap, "contact\\".$user, $password)) {
-            $access = 2;
-        }else { 
-            $access = 1;
-            ldap_unbind($ldap); 
-        }
-
-        if($access == 2) {
-            // establish session variables
-            #$_SESSION['user'] = $user;
-            #$_SESSION['access'] = $access;
+        if(ldap_bind($ldap, "contact\\".$user, $password)) {
+            //LOGIN Correcto
             $filter = "(sAMAccountName=" . $user . ")";
             $attr = array("memberof");
             $result = ldap_search($ldap, $ldap_dn, $filter, $attr) or exit("Unable to search LDAP server");
             $entries = ldap_get_entries($ldap, $result);
-            
-            
             for ($x=0; $x<$entries['count']; $x++){
                     $LDAP_LastName = "";                                
                     if (!empty($entries[$x]['dn'][0])) {
@@ -151,7 +141,6 @@ class AuthController extends Controller
                             $LDAP_LastName = "";
                         }
                     }
-                
                 } //END for loop
             ldap_unbind($ldap);
             // Registro al usuario en la plataforma
@@ -161,6 +150,7 @@ class AuthController extends Controller
                 $usr->name      = $user;
                 $usr->lastname  = $LDAP_LastName;
                 $usr->password  = Hash::make($password);
+                $usr->save();
             }else{
                 $usr = new User();
                 $usr->name      = $user;
@@ -174,11 +164,10 @@ class AuthController extends Controller
                 $usr->save();
             }
             return $un;
-        } else {
+        }else { 
+            // Error en el LOGIN
+            ldap_unbind($ldap); 
             return false;
         }
-    
     }
-    
-
 }
