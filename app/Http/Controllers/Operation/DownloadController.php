@@ -36,7 +36,9 @@ class DownloadController extends Controller
                                 }
                             })
                             ->where(function($query) use ($request){
-                                $query->whereBetween('created_at',[$request->dateinit,$request->dateend]);  
+                                $di = Carbon::parse($request->dateinit)->format('Y-m-d H:i:00');
+                                $de = Carbon::parse($request->dateend)->format('Y-m-d H:i:00');
+                                $query->whereBetween('created_at',[$di,$de]);  
                             })
                             ->get();
         $filename = 'paloteo_' . date("_Ymd_His");
