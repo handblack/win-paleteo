@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operation;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\VlvReport;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -11,11 +12,14 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class DownloadController extends Controller
 {
     public function rpt_paloteo(){
-        $dateinit = date('Y-m-d');
-        $dateend = date('Y-m-d');
+        $dateinit = date('Y-m-d H:i');
+        $dateend = date('Y-m-d H:i');
+        $users = User::where('team_id',1)
+                        ->get();
         return view('download.menu',[
-            'dateinit' => $dateinit,
-            'dateend' => $dateend,
+            'dateinit'  => $dateinit,
+            'dateend'   => $dateend,
+            'users'     => $users
         ]);
     }
 

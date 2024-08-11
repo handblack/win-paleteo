@@ -27,17 +27,28 @@
     @csrf
 <div class="card">
     <div class="card-body">
-        <div class="col-md-4">
-            <label class="mb-0">Rango Fecha</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id=""><i
-                            class="fas fa-calendar-alt fa-fw"></i></span>
+        <div class="row">
+        
+            <div class="col-md-4">
+                <label class="mb-0">Asesores</label>
+                <select name="" id="" class="form-control">
+                    <option value="0">-- TODOS --</option>
+                    @foreach ($users as $item)
+                        <option value="{{ $item->id }}">{{ $item->lastname }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-0">Rango Fecha</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id=""><i
+                                class="fas fa-calendar-alt fa-fw"></i></span>
+                    </div>
+                    <input type="datetime-local" class="form-control" name="dateinit" value="{{ old('dateinit', $dateinit) }}" required>
+                    <input type="datetime-local" class="form-control" name="dateend" value="{{ date('Y-m-d H:i') }}" required>
+    
                 </div>
-                <input type="date" class="form-control" name="dateinit"
-                    value="{{ old('dateinit', $dateinit) }}" required>
-                <input type="date" class="form-control" name="dateend" value="{{ date('Y-m-d') }}" required>
-
             </div>
         </div>
     </div>

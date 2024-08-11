@@ -70,7 +70,7 @@
         --}}
 
         <li class="nav-item">
-            <span class="navbar-text d-md-inline-block d-none">{{ auth()->user()->email }}</span>
+            <span class="navbar-text d-md-inline-block d-none">{{ auth()->user()->lastname }}</span>
         </li>
         <li class="nav-item">&nbsp;</li>
 

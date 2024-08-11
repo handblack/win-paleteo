@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css')}}">
         <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         
-        <title>FlashAccount</title>
+        <title>ContactBicker</title>
         @stack('header')
         @stack('css')
         @stack('style')

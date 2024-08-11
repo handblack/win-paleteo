@@ -27,22 +27,24 @@
     <div class="card">
         <div class="card-body bg-form">
             <div class="row mb-2">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="">UserName</label>
                     <input type="text" class="form-control" name="name" value="{{ $row->name }}">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="">Nombre Completo</label>
                     <input type="text" class="form-control" name="lastname" value="{{ $row->lastname }}">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <label for="">Email</label>
                     <input type="text" class="form-control" name="email" value="{{ $row->email }}">
                 </div>
+                {{--
                 <div class="col-md-3">
                     <label for="">Contraseña</label>
                     <input type="password" class="form-control" name="password" value="">
                 </div>
+                --}}
             </div>
             <div class="row">
                 <div class="col-md-4">
