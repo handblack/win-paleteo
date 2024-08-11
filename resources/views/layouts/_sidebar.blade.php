@@ -4,7 +4,7 @@
         <img src="{{ asset('images/AdminLTELogo_color.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">
-            <span class="font-weight-light">WIN
+            <span class="font-weight-light">ContactBicker
         </span>
     </a>
     <!-- Sidebar -->

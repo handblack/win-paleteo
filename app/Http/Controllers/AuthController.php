@@ -32,7 +32,8 @@ class AuthController extends Controller
             return back()->withErrors(['error' => 'Error en credenciales.']);
         }else{
             //Estamos en produccion y ejecutamos validacion con LDAP
-            $mail = $this->authenticate2($request->email,$request->password);
+            #$mail = $this->authenticate2($request->email,$request->password);
+            $mail = $this->authenticate($request->email,$request->password);
             $user = User::where('email',$mail)->first();
             if($user){
                 Auth::login($user);
