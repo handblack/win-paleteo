@@ -8,11 +8,15 @@ use App\Http\Controllers\BPartner\BPContactController;
 use App\Http\Controllers\BPartner\SalesPersonController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\DocTypeController;
+use App\Http\Controllers\Master\ReasonController;
 use App\Http\Controllers\Master\SequenceController;
+use App\Http\Controllers\Master\SubReasonController;
+use App\Http\Controllers\Operation\DownloadController;
 use App\Http\Controllers\Operation\InvoiceController;
 use App\Http\Controllers\Operation\InvoiceLineController;
 use App\Http\Controllers\Operation\OrderController;
 use App\Http\Controllers\Operation\OrderLineController;
+use App\Http\Controllers\Operation\PaloteoController;
 use App\Http\Controllers\Operation\TempHeaderController;
 use App\Http\Controllers\Operation\TempLineController;
 use App\Http\Controllers\Pricelist\PricelistController;
@@ -48,8 +52,10 @@ use App\Models\VlProductTejido;
 use App\Models\VlProductTenido;
 use App\Models\VlProductTitulo;
 use App\Models\VlProductUM;
+use App\Models\VlReason;
 use App\Models\VlSalesPerson;
 use App\Models\VlUbigeo;
+use App\Models\VlvReason;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -57,9 +63,13 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
-Route::get('login', [AuthController::class,'login'])->name('login');
-Route::post('login', [AuthController::class,'login_submit'])->name('login_submit');
+
+Route::get('login', [AuthController::class,'login2'])->name('login');
+Route::post('login', [AuthController::class,'login2_submit'])->name('login_submit');
+
+
 Route::post('logout', [AuthController::class,'logout'])->name('logout');
+
 Route::get('login/google',              [SocialAuthController::class, 'redirectToProvider'])->name('login_google');
 Route::get('login/google/callback',     [SocialAuthController::class, 'handleProviderCallback'])->name('login_callback');
 
@@ -74,7 +84,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('parameter',                [ParameterController::class,'api_datatable'])->name('parameter.ajax');
     });
     Route::group(['prefix' => 'master'], function (){
-        Route::resource('doctype/manager',      DocTypeController::class,   ['names' => 'doctype']);        
+        Route::resource('doctype/manager',      DocTypeController::class,  ['names' => 'doctype']);
+        Route::resource('reason/manager',       ReasonController::class,   ['names' => 'reason']);
+        Route::resource('subreason/manager',    SubReasonController::class,['names' => 'subreason']);
+        Route::post('ajax/motivos',              [VlvReason::class,           'api_reason'])->name('api_reason');
     });
     Route::group(['prefix' => 'product'], function (){
         Route::resource('manager',              ProductController::class,['names' => 'product']);
@@ -126,11 +139,17 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'operation'], function (){
+        Route::resource('paloteo/manager',       PaloteoController::class,['names' => 'paloteo']);
         Route::resource('order/manager',        OrderController::class,['names' => 'order']);
         Route::resource('order/lines',          OrderLineController::class,['names' => 'orderline']);
         Route::resource('invoice/manager',      InvoiceController::class,['names' => 'invoice']);
         Route::resource('invoice/line',         InvoiceLineController::class,['names' => 'invoiceline']);
         Route::resource('th',                   TempHeaderController::class,['names' => 'tempheader']);
         Route::resource('tl',                   TempLineController::class,['names' => 'templine']);
+    });
+    
+    Route::group(['prefix' => 'report'], function (){
+        Route::get('paloteo',       [DownloadController::class,'rpt_paloteo'])->name('rpt_paloteo');
+        Route::post('paloteo',      [DownloadController::class,'rpt_paloteo_post'])->name('rpt_paloteo_post');
     });
 });

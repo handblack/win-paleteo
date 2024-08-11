@@ -14,35 +14,7 @@
             </a>
         </li>
         --}}
-        @if(env('APP_ENV','local') == 'local')
-        <li class="nav-item">
-            <a href="#" class="nav-link text-nowrap" data-toggle="modal" data-target="#modalQuerySTOCK">
-                <i class="fab fa-searchengin fa-fw"></i>
-                <span class="d-lg-inline-block d-md-inline-block d-lg-none d-md-none d-none">Buscar</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('order.create') }}" class="nav-link text-nowrap" alt="Crear pedido" target="_blank">
-                <i class="far fa-clipboard fa-fw"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{ route('invoice.create') }}" class="nav-link text-nowrap">
-                <i class="fas fa-cart-arrow-down fa-fw"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('invoice.create') }}" class="nav-link text-nowrap">
-                <i class="fas fa-plus-square fa-fw text-success"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link text-nowrap">
-                <i class="fas fa-minus-square fa-fw text-danger"></i>
-            </a>
-        </li>
-        @endif
+         
         @if (auth()->user()->isadmin == 'Y')
             <li class="nav-item dropdown">
                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"

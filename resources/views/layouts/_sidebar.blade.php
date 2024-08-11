@@ -37,6 +37,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        {{--
                         @if(auth()->user()->isgrant('td_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('doctype.index') }}" class="nav-link {{ request()->is('master/doctype*') ? 'active' : '' }}">
@@ -45,10 +46,29 @@
                             </a>
                         </li>
                         @endif
+                        --}}
+                        @if(auth()->user()->isgrant('td_isgrant'))
+                        <li class="nav-item">
+                            <a href="{{ route('reason.index') }}" class="nav-link {{ request()->is('master/reason*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestor de Motivos</p>
+                            </a>
+                        </li>
+                        @endif
+                        @if(auth()->user()->isgrant('td_isgrant'))
+                        <li class="nav-item">
+                            <a href="{{ route('subreason.index') }}" class="nav-link {{ request()->is('master/subreason*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestor de Sub-Motivos</p>
+                            </a>
+                        </li>
+                        @endif
                         
                         
                     </ul>
                 </li>
+
+                {{--
                 <li class="nav-item {{ request()->is('product*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('product*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cubes"></i>
@@ -58,6 +78,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                         
                         @if(auth()->user()->isgrant('pr_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('product.index') }}" class="nav-link {{ request()->is('product/manager*') ? 'active' : '' }}">
@@ -66,7 +87,6 @@
                             </a>
                         </li>
                         @endif
-                        {{-- 
                             <li class="nav-item">
                                 <a href="{{ route('group.index') }}" class="nav-link {{ request()->is('product/group*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
@@ -135,9 +155,12 @@
                                     <p>Unidad de Medida</p>
                                 </a>
                             </li>
-                        --}}
+                        
                     </ul>
                 </li>
+                --}}
+
+                {{--
                 <li class="nav-item {{ request()->is('bpartner*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('bpartner*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -171,8 +194,9 @@
                         </li>                        
                     </ul>
                 </li>
-
+                --}}
                 
+                {{--
                 <li class="nav-item {{ request()->is('pricelist*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('bpartner*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-list-alt"></i>
@@ -188,23 +212,9 @@
                                 <p>Gestor Lista Precios</p>
                             </a>
                         </li>
-                        {{--
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Rotaciones</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Reportes</p>
-                            </a>
-                        </li>
-                        --}}                        
                     </ul>
                 </li>
-
+                --}}
 
                 <li class="nav-item {{ request()->is('operation*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('operation*') ? 'active' : '' }}">
@@ -215,6 +225,15 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if(auth()->user()->isgrant('o1_isgrant'))
+                        <li class="nav-item">
+                            <a href="{{ route('paloteo.index') }}" class="nav-link {{ request()->is('operation/paloteo*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Paloteo</p>
+                            </a>
+                        </li>
+                        @endif
+                        {{--
                         @if(auth()->user()->isgrant('o1_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('order.index') }}" class="nav-link {{ request()->is('operation/order*') ? 'active' : '' }}">
@@ -255,6 +274,7 @@
                             </a>
                         </li>
                         @endif
+                        --}}
                     </ul>
                 </li>
                 <li class="nav-item {{ request()->is('report*') ? 'menu-open' : '' }}">
@@ -268,7 +288,7 @@
                     <ul class="nav nav-treeview">
                         @if(auth()->user()->isgrant('r1_isgrant'))
                         <li class="nav-item">
-                            <a href="{{ route('order.index') }}" class="nav-link {{ request()->is('report/r1*') ? 'active' : '' }}">
+                            <a href="{{ route('rpt_paloteo') }}" class="nav-link {{ request()->is('report/r1*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Estado de Cuenta R1</p>
                             </a>
