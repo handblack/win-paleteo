@@ -29,16 +29,16 @@
     <div class="card-body">
         <div class="row">
         
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="mb-0">Asesores</label>
-                <select name="" id="" class="form-control">
+                <select name="user_id" class="form-control">
                     <option value="0">-- TODOS --</option>
                     @foreach ($users as $item)
                         <option value="{{ $item->id }}">{{ $item->lastname }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="mb-0">Rango Fecha</label>
                 <div class="input-group">
                     <div class="input-group-prepend">

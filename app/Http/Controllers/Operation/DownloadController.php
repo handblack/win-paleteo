@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operation;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\VlvReport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -24,9 +25,15 @@ class DownloadController extends Controller
     }
 
     public function rpt_paloteo_post(Request $request){
-
-
-        $result = VlvReport::all();
+        $result = VlvReport::where(function($query) use ($request){
+                                if($request->user_id != 0){
+                                    $query->whereCreatedBy($request->user_id);
+                                }
+                            })
+                            ->where(function($query) use ($request){
+                                $query->whereBeethen('created_at',[$request->dateinit,$request->dateend]);  
+                            })
+                            ->get();
         $filename = app(VlvReport::class)->getTable() . date("_Ymd_His");
         return response()->streamDownload(function () use ($result) {
             $spreadsheet = new Spreadsheet;
@@ -51,8 +58,12 @@ class DownloadController extends Controller
             $key=1;
             foreach($result as $item){
                 $key++;
-                $sheet->setCellValue("A$key", $item->id);
-                //$sheet->setCellValue("F$key", 'WIN');
+                $sheet->setCellValue("A$key", Carbon::parse($item->created_at)->format('d/m/Y'));
+                $sheet->setCellValueExplicit("B$key", Carbon::parse($item->created_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                
+                $sheet->setCellValue("C$key", '');
+                $sheet->setCellValue("D$key", $item->createdby->lastname);
+                $sheet->setCellValue("E$key", $item->createdby->name);
                 $sheet->setCellValue("F$key", 'WIN');
                 $sheet->setCellValueExplicit("G$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("H$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
