@@ -77,7 +77,7 @@ class DownloadController extends Controller
                 $sheet->setCellValueExplicit("G$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("H$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("I$key", $item->did,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                $sheet->setCellValue("J$key", ($item->isincidente == 'Y' ? 'SI' : 'NO'));
+                $sheet->setCellValue("J$key", ($item->isincidencia == 'Y' ? 'SI' : 'NO'));
                 switch($item->incidencia_id){
                     case 1:$m = 'Emisión Incorrecta de recibos';break;
                     case 2:$m = 'Suspensión por error de sistema';break;
