@@ -28,11 +28,11 @@
         <div class="card-body bg-form">
             <div class="row mb-2">
                 <div class="col-md-2">
-                    <label for="">Nombre</label>
+                    <label for="">UserName</label>
                     <input type="text" class="form-control" name="name" value="{{ $row->name }}">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Apellidos</label>
+                    <label for="">Nombre Completo</label>
                     <input type="text" class="form-control" name="lastname" value="{{ $row->lastname }}">
                 </div>
                 <div class="col-md-4">
