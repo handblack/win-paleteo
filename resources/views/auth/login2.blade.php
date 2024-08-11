@@ -6,7 +6,10 @@
 
         <div class="login-box">
             
-            
+            <div class="login-logo">
+                <span><img src="{{ asset('images/logo-contact.png') }}" alt="" width="130"></span>
+            </div>
+
             <div class="card">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg" style="font-size:1.6rem;"></p>
