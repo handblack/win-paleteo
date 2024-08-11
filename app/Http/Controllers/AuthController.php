@@ -94,23 +94,23 @@ class AuthController extends Controller
     private function authenticate2($user, $password) {
         $ldap_usr_dom   = '@contactbpo.pe';
         $LDAP_LastName  = 'SIN';
-        $un = strtolower(trim($user) . '@' . $ldap_usr_dom);  // => llombardi@contactbpo.pe
+        $un = strtolower(trim($user) . $ldap_usr_dom);  // => llombardi@contactbpo.pe
             $usr = User::whereEmail($un)->first();
             if($usr){
                 $usr->name      = $user;
                 $usr->lastname  = $LDAP_LastName;
                 $usr->password  = Hash::make($password);
             }else{
-                User::create([
-                    'name'      => $user,
-                    'email'     => $un,
-                    'lastname'  => $LDAP_LastName,
-                    'password'  => Hash::make($password),
-                    'token'     => User::get_token(),
-                    'isactive'  => 'Y',
-                    'isadmin'   => 'N',
-                    'team_id'   => 1,
-                ]);
+                $usr = new User();
+                $usr->name      = $user;
+                $usr->email     = $un;
+                $usr->lastname  = $LDAP_LastName;
+                $usr->password  = Hash::make($password);
+                $usr->token     = User::get_token();
+                $usr->isactive  = 'Y';
+                $usr->isadmin   = 'N';
+                $usr->team_id   = 1;
+                $usr->save();
             }
             return $un;
     }
@@ -154,23 +154,23 @@ class AuthController extends Controller
                 } //END for loop
             ldap_unbind($ldap);
             // Registro al usuario en la plataforma
-            $un = strtolower(trim($user) . '@' . $ldap_usr_dom);  // => llombardi@contactbpo.pe
+            $un = strtolower(trim($user) . $ldap_usr_dom);  // => llombardi@contactbpo.pe
             $usr = User::whereEmail($un)->first();
             if($usr){
                 $usr->name      = $user;
                 $usr->lastname  = $LDAP_LastName;
                 $usr->password  = Hash::make($password);
             }else{
-                User::create([
-                    'name'      => $user,
-                    'email'     => $un,
-                    'lastname'  => $LDAP_LastName,
-                    'password'  => Hash::make($password),
-                    'token'     => User::get_token(),
-                    'isactive'  => 'Y',
-                    'isadmin'   => 'N',
-                    'team_id'   => 1,
-                ]);
+                $usr = new User();
+                $usr->name      = $user;
+                $usr->email     = $un;
+                $usr->lastname  = $LDAP_LastName;
+                $usr->password  = Hash::make($password);
+                $usr->token     = User::get_token();
+                $usr->isactive  = 'Y';
+                $usr->isadmin   = 'N';
+                $usr->team_id   = 1;
+                $usr->save();
             }
             return $un;
         } else {
