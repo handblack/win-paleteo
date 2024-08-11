@@ -30,17 +30,18 @@ class DownloadController extends Controller
             'dateinit'  => 'required',
             'dateend'   => 'required',
         ]);
+        $di = Carbon::parse($request->dateinit)->format('Y-m-d H:i:00');
+        $de = Carbon::parse($request->dateend)->format('Y-m-d H:i:59');
         $result = VlvReport::where(function($query) use ($request){
                                 if($request->user_id != 0){
                                     $query->whereCreatedBy($request->user_id);
                                 }
                             })
-                            ->where(function($query) use ($request){
-                                $di = Carbon::parse($request->dateinit)->format('Y-m-d H:i:00');
-                                $de = Carbon::parse($request->dateend)->format('Y-m-d H:i:00');
-                                $query->whereDate('created_at','<=',$de);  
-                                $query->whereDate('created_at','>=',$di);  
-                            })
+                            ->whereBetween('created_at',["$di","$de"])
+                            #->where(function($query) use ($request){
+                            #    $query->whereDate('created_at','<=',$de);  
+                            #    $query->whereDate('created_at','>=',$di);  
+                            #})
                             ->get();
         $filename = 'paloteo_' . date("_Ymd_His");
         return response()->streamDownload(function () use ($result) {
