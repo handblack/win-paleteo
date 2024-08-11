@@ -31,10 +31,10 @@ class DownloadController extends Controller
                                 }
                             })
                             ->where(function($query) use ($request){
-                                $query->whereBeethen('created_at',[$request->dateinit,$request->dateend]);  
+                                $query->whereBetween('created_at',[$request->dateinit,$request->dateend]);  
                             })
                             ->get();
-        $filename = app(VlvReport::class)->getTable() . date("_Ymd_His");
+        $filename = 'paloteo_' . date("_Ymd_His");
         return response()->streamDownload(function () use ($result) {
             $spreadsheet = new Spreadsheet;
             $sheet       = $spreadsheet->getActiveSheet();
