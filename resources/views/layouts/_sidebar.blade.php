@@ -4,7 +4,7 @@
         <img src="{{ asset('images/AdminLTELogo_color.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">
-            <span class="font-weight-light">Flash<span>Account
+            <span class="font-weight-light">WIN
         </span>
     </a>
     <!-- Sidebar -->
@@ -290,7 +290,7 @@
                         <li class="nav-item">
                             <a href="{{ route('rpt_paloteo') }}" class="nav-link {{ request()->is('report/r1*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Estado de Cuenta R1</p>
+                                <p>Descarga Paloteo</p>
                             </a>
                         </li>
                         @endif
