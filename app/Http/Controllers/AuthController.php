@@ -32,7 +32,7 @@ class AuthController extends Controller
             return back()->withErrors(['error' => 'Error en credenciales.']);
         }else{
             //Estamos en produccion y ejecutamos validacion con LDAP
-            $mail = $this->authenticate($request->email,$request->password);
+            $mail = $this->authenticate2($request->email,$request->password);
             $user = User::where('email',$mail)->first();
             if($user){
                 Auth::login($user);
@@ -91,6 +91,30 @@ class AuthController extends Controller
     }
 
     
+    private function authenticate2($user, $password) {
+        $ldap_usr_dom   = '@contactbpo.pe';
+        $LDAP_LastName  = 'SIN';
+        $un = strtolower(trim($user) . '@' . $ldap_usr_dom);  // => llombardi@contactbpo.pe
+            $usr = User::whereEmail($un)->first();
+            if($usr){
+                $usr->name      = $user;
+                $usr->lastname  = $LDAP_LastName;
+                $usr->password  = Hash::make($password);
+            }else{
+                User::create([
+                    'name'      => $user,
+                    'email'     => $un,
+                    'lastname'  => $LDAP_LastName,
+                    'password'  => Hash::make($password),
+                    'token'     => User::get_token(),
+                    'isactive'  => 'Y',
+                    'isadmin'   => 'N',
+                    'team_id'   => 1,
+                ]);
+            }
+            return $un;
+    }
+
     private function authenticate($user, $password) {
         if(empty($user) || empty($password)){
             return false;
