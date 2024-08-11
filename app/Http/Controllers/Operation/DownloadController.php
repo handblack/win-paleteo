@@ -25,6 +25,11 @@ class DownloadController extends Controller
     }
 
     public function rpt_paloteo_post(Request $request){
+        $request->validate([
+            'user_id'   => 'required',
+            'dateinit'  => 'required',
+            'dateend'   => 'required',
+        ]);
         $result = VlvReport::where(function($query) use ($request){
                                 if($request->user_id != 0){
                                     $query->whereCreatedBy($request->user_id);
