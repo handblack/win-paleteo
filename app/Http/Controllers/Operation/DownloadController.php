@@ -44,27 +44,28 @@ class DownloadController extends Controller
                             #})
                             ->get();
         $filename = 'paloteo_' . date("_Ymd_His");
-        return response()->streamDownload(function () use ($result) {
+        return response()->streamDownload(function () use ($result,$request) {
             $spreadsheet = new Spreadsheet;
             $sheet       = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A1', 'FECHA');
-            $sheet->setCellValue('B1', 'HORA');
-            $sheet->setCellValue('C1', 'KEY');
-            $sheet->setCellValue('D1', 'ASESOR');
-            $sheet->setCellValue('E1', 'DNI ASESOR');
-            $sheet->setCellValue('F1', 'CAMPAÑA');
-            $sheet->setCellValue('G1', 'NODO');
-            $sheet->setCellValue('H1', 'CLIENTE');
-            $sheet->setCellValue('I1', 'NUMERO ENTRADA');
-            $sheet->setCellValue('J1', 'INCIDENCIA');
-            $sheet->setCellValue('K1', 'TIPO INCIDENCIA');
-            $sheet->setCellValue('L1', 'MES QUE AFECTA');
-            $sheet->setCellValue('M1', 'COMENTARIO');
-            $sheet->setCellValue('N1', 'MOTIVO');
-            $sheet->setCellValue('O1', 'SUB-MOTIVO');
-            $sheet->getStyle('A1:O1')->applyFromArray(['font' => ['bold' => true]]);
-            $sheet->getStyle('A1:CO1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
-            $key=1;
+            $sheet->setCellValue('A1', 'PARAM=> '.$request->dateinit.' hasta '.$request->dateend .' / user('.$request->user_id.')');
+            $sheet->setCellValue('A2', 'FECHA');
+            $sheet->setCellValue('B2', 'HORA');
+            $sheet->setCellValue('C2', 'KEY');
+            $sheet->setCellValue('D2', 'ASESOR');
+            $sheet->setCellValue('E2', 'DNI ASESOR');
+            $sheet->setCellValue('F2', 'CAMPAÑA');
+            $sheet->setCellValue('G2', 'NODO');
+            $sheet->setCellValue('H2', 'CLIENTE');
+            $sheet->setCellValue('I2', 'NUMERO ENTRADA');
+            $sheet->setCellValue('J2', 'INCIDENCIA');
+            $sheet->setCellValue('K2', 'TIPO INCIDENCIA');
+            $sheet->setCellValue('L2', 'MES QUE AFECTA');
+            $sheet->setCellValue('M2', 'COMENTARIO');
+            $sheet->setCellValue('N2', 'MOTIVO');
+            $sheet->setCellValue('O2', 'SUB-MOTIVO');
+            $sheet->getStyle('A2:O2')->applyFromArray(['font' => ['bold' => true]]);
+            $sheet->getStyle('A2:O2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
+            $key=2;
             foreach($result as $item){
                 $key++;
                 $sheet->setCellValue("A$key", Carbon::parse($item->created_at)->format('d/m/Y'));
