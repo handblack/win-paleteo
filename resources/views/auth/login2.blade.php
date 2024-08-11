@@ -13,7 +13,7 @@
                     <form action="{{ route('login_submit') }}" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="email" placeholder="Email">
+                            <input type="text" class="form-control" name="email" placeholder="Usuario Windows">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
