@@ -108,7 +108,7 @@ class DownloadController extends Controller
                 $sheet->setCellValue("N$key", $item->reason);
                 $sheet->setCellValue("O$key", $item->subreason);
             }
-            $cols = explode(',','A,B,C');
+            $cols = explode(',','B,C,D,E,F,G');
             foreach($cols as $col){
                 $sheet->getColumnDimension($col)->setAutoSize(true);
             }
