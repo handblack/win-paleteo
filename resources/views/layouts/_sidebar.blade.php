@@ -72,6 +72,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if(auth()->user()->isgrant('al_isgrant'))
+                        <li class="nav-item">
+                            <a href="{{ route('alert.index') }}" class="nav-link {{ request()->is('operation/alert*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sistema de Alerta</p>
+                            </a>
+                        </li>
+                        @endif
                         @if(auth()->user()->isgrant('pa_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('paloteo.index') }}" class="nav-link {{ request()->is('operation/paloteo*') ? 'active' : '' }}">

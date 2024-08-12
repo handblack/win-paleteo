@@ -63,8 +63,9 @@ class DownloadController extends Controller
             $sheet->setCellValue('M2', 'COMENTARIO');
             $sheet->setCellValue('N2', 'MOTIVO');
             $sheet->setCellValue('O2', 'SUB-MOTIVO');
-            $sheet->getStyle('A2:O2')->applyFromArray(['font' => ['bold' => true]]);
-            $sheet->getStyle('A2:O2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
+            $sheet->setCellValue('P2', 'PROGRAMA');
+            $sheet->getStyle('A2:P2')->applyFromArray(['font' => ['bold' => true]]);
+            $sheet->getStyle('A2:P2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
             $key=2;
             foreach($result as $item){
                 $key++;
@@ -107,6 +108,7 @@ class DownloadController extends Controller
                 $sheet->setCellValue("M$key", $item->comment);
                 $sheet->setCellValue("N$key", $item->reason);
                 $sheet->setCellValue("O$key", $item->subreason);
+                $sheet->setCellValue("P$key", $item->program);
             }
             $cols = explode(',','B,C,D,E,F,G');
             foreach($cols as $col){

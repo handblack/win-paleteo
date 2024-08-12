@@ -11,6 +11,8 @@ use App\Http\Controllers\Master\DocTypeController;
 use App\Http\Controllers\Master\ReasonController;
 use App\Http\Controllers\Master\SequenceController;
 use App\Http\Controllers\Master\SubReasonController;
+use App\Http\Controllers\Operation\AlertController;
+use App\Http\Controllers\Operation\AlertLineController;
 use App\Http\Controllers\Operation\DownloadController;
 use App\Http\Controllers\Operation\InvoiceController;
 use App\Http\Controllers\Operation\InvoiceLineController;
@@ -38,6 +40,7 @@ use App\Http\Controllers\System\ParameterController;
 use App\Http\Controllers\System\TeamController;
 use App\Http\Controllers\System\TeamGrantController;
 use App\Http\Controllers\System\UserController;
+use App\Models\User;
 use App\Models\VlBpartner;
 use App\Models\VlPriceList;
 use App\Models\VlProduct;
@@ -82,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sequence',             SequenceController::class,['names' => 'sequence']);
         Route::resource('parameter',            ParameterController::class,['names' => 'parameter']);
         Route::post('parameter',                [ParameterController::class,'api_datatable'])->name('parameter.ajax');
+        Route::post('ajax/user',                [User::class,           'api_user'])->name('api_user');
     });
     Route::group(['prefix' => 'master'], function (){
         Route::resource('doctype/manager',      DocTypeController::class,  ['names' => 'doctype']);
@@ -135,11 +139,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('manager',              PricelistController::class,['names' => 'pricelist']);
         Route::resource('lines',                PricelistLineController::class,['names' => 'pricelistline']);
         Route::get('download/{id}/{hash}',      [PricelistController::class,'download_pricelist'])->name('download_pricelist');
-        Route::post('upload',                    [PricelistController::class,'pricelist_upload_excel'])->name('pricelist_upload_excel');                   
+        Route::post('upload',                   [PricelistController::class,'pricelist_upload_excel'])->name('pricelist_upload_excel');                   
     });
 
     Route::group(['prefix' => 'operation'], function (){
-        Route::resource('paloteo/manager',       PaloteoController::class,['names' => 'paloteo']);
+        Route::resource('alert/manager',        AlertController::class,['names' => 'alert']);
+        Route::resource('alert/line',           AlertLineController::class,['names' => 'alertline']);
+        Route::resource('paloteo/manager',      PaloteoController::class,['names' => 'paloteo']);
         Route::resource('order/manager',        OrderController::class,['names' => 'order']);
         Route::resource('order/lines',          OrderLineController::class,['names' => 'orderline']);
         Route::resource('invoice/manager',      InvoiceController::class,['names' => 'invoice']);

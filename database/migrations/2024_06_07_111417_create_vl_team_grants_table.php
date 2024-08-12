@@ -48,6 +48,7 @@ return new class extends Migration
             // socio de negocio
             $cfg = [
                 'pa',   // Paloteo
+                'al',   // Sistema de mensajes
             ];
             foreach($cfg as $cf){
                 $table->enum("{$cf}_isgrant",['Y','N'])->default('N');

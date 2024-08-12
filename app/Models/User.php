@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -23,6 +25,8 @@ class User extends Authenticatable
         'email',
         'team_id',
         'isactive',
+        'program',
+        'leader_id',
     ];
 
     /**
@@ -100,4 +104,20 @@ class User extends Authenticatable
                     ]);
     }
 
+    public function api_user(Request $request){
+        $s = $request->s;
+        $q = str_replace(' ','%',"%{$request->q}").'%';
+        $result = User::select(
+                                'id as id',
+                                DB::raw("CONCAT(name,' - ',lastname) as text"),
+                            )
+                            ->orWhere('name','LIKE',$q)
+                            ->orWhere('lastname','LIKE',$q)
+                            ->orderBy('lastname')
+                            ->limit(env('RESULT_SELECT2',30))
+                            ->get();
+        return response()->json(['results' => $result]);
+    }
 }
+
+

@@ -21,12 +21,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('program',100)->nullable();
             $table->string('token',60)->nullable();
             $table->enum('isactive',['Y','N'])->default('N');
             $table->enum('isadmin',['Y','N'])->default('N');
             $table->foreignId('team_id');
             $table->rememberToken();
             
+            $table->foreignId('leader_id')->nullable();
+
             $table->foreignId('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('vl_users');
             $table->foreignId('updated_by')->nullable();
