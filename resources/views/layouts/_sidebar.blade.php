@@ -27,7 +27,10 @@
                     </a>
                 </li>
             
-             
+                @if(
+                    auth()->user()->isgrant('ra_isgrant') || 
+                    auth()->user()->isgrant('rs_isgrant')
+                )
                 <li class="nav-item {{ request()->is('master*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('master*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tools"></i>
@@ -37,17 +40,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{--
-                        @if(auth()->user()->isgrant('td_isgrant'))
-                        <li class="nav-item">
-                            <a href="{{ route('doctype.index') }}" class="nav-link {{ request()->is('master/doctype*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tipo de Documento</p>
-                            </a>
-                        </li>
-                        @endif
-                        --}}
-                        @if(auth()->user()->isgrant('td_isgrant'))
+                        @if(auth()->user()->isgrant('ra_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('reason.index') }}" class="nav-link {{ request()->is('master/reason*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -55,7 +48,7 @@
                             </a>
                         </li>
                         @endif
-                        @if(auth()->user()->isgrant('td_isgrant'))
+                        @if(auth()->user()->isgrant('rs_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('subreason.index') }}" class="nav-link {{ request()->is('master/subreason*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -63,158 +56,12 @@
                             </a>
                         </li>
                         @endif
-                        
-                        
                     </ul>
                 </li>
-
-                {{--
-                <li class="nav-item {{ request()->is('product*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('product*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cubes"></i>
-                        <p>
-                            Productos
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                         
-                        @if(auth()->user()->isgrant('pr_isgrant'))
-                        <li class="nav-item">
-                            <a href="{{ route('product.index') }}" class="nav-link {{ request()->is('product/manager*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestor de Productos</p>
-                            </a>
-                        </li>
-                        @endif
-                            <li class="nav-item">
-                                <a href="{{ route('group.index') }}" class="nav-link {{ request()->is('product/group*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Grupo</p>
-                                </a>
-                            </li>
-                            @if(auth()->user()->isgrant('td_isgrant'))
-                            <li class="nav-item">
-                                <a href="{{ route('familia.index') }}" class="nav-link {{ request()->is('product/famili*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Familia</p>
-                                </a>
-                            </li>
-                            @endif
-                            <li class="nav-item">
-                                <a href="{{ route('subfamilia.index') }}" class="nav-link {{ request()->is('product/subfamilia*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>SubFamilia</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('tejido.index') }}" class="nav-link {{ request()->is('product/tejido*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Tejido</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('hilatura.index')  }}" class="nav-link {{ request()->is('product/hilatura*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Hilatura</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('titulo.index') }}" class="nav-link {{ request()->is('product/titulo*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Titulo</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('gama.index') }}" class="nav-link {{ request()->is('product/gama*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Gama</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('tenido.index') }}" class="nav-link {{ request()->is('product/tenido*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Teñido</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('acabado.index') }}" class="nav-link {{ request()->is('product/acabado*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Acabado</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('presentacion.index') }}" class="nav-link {{ request()->is('product/presentacion*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Presentacion</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('um.index') }}" class="nav-link {{ request()->is('product/um*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Unidad de Medida</p>
-                                </a>
-                            </li>
-                        
-                    </ul>
-                </li>
-                --}}
-
-                {{--
-                <li class="nav-item {{ request()->is('bpartner*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('bpartner*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Clientes
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if(auth()->user()->isgrant('bp_isgrant'))
-                        <li class="nav-item">
-                            <a href="{{ route('bpartner.index') }}" class="nav-link {{ request()->is('bpartner/manager*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestor Maestro</p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(auth()->user()->isgrant('cc_isgrant'))
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cuentas Corriente</p>
-                            </a>
-                        </li>
-                        @endif
-                        <li class="nav-item">
-                            <a href="{{ route('salesperson.index') }}" class="nav-link {{ request()->is('bpartner/salesperson*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Ejecutivo de Venta</p>
-                            </a>
-                        </li>                        
-                    </ul>
-                </li>
-                --}}
-                
-                {{--
-                <li class="nav-item {{ request()->is('pricelist*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('bpartner*') ? 'active' : '' }}">
-                        <i class="nav-icon far fa-list-alt"></i>
-                        <p>
-                            Lista de Precios
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('pricelist.index') }}" class="nav-link {{ request()->is('pricelist/manager*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestor Lista Precios</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                --}}
+                @endif
+               
+ 
+          
 
                 <li class="nav-item {{ request()->is('operation*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('operation*') ? 'active' : '' }}">
@@ -225,7 +72,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @if(auth()->user()->isgrant('o1_isgrant'))
+                        @if(auth()->user()->isgrant('pa_isgrant'))
                         <li class="nav-item">
                             <a href="{{ route('paloteo.index') }}" class="nav-link {{ request()->is('operation/paloteo*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -233,50 +80,10 @@
                             </a>
                         </li>
                         @endif
-                        {{--
-                        @if(auth()->user()->isgrant('o1_isgrant'))
-                        <li class="nav-item">
-                            <a href="{{ route('order.index') }}" class="nav-link {{ request()->is('operation/order*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pedidos</p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(auth()->user()->isgrant('o2_isgrant'))
-                        <li class="nav-item">
-                            <a href="{{ route('invoice.index') }}" class="nav-link {{ request()->is('operation/invoice*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Nota de Venta</p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(auth()->user()->isgrant('o3_isgrant'))
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cobranzas/Depositos</p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(auth()->user()->isgrant('o4_isgrant'))
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pagos/Extorno</p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(auth()->user()->isgrant('o5_isgrant'))
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('bpartner/account*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Asignación de Anticipo</p>
-                            </a>
-                        </li>
-                        @endif
-                        --}}
+                  
                     </ul>
                 </li>
+                @if(auth()->user()->isgrant('r1_isgrant'))
                 <li class="nav-item {{ request()->is('report*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-print"></i>
@@ -296,6 +103,7 @@
                         @endif
                     </ul>
                 </li>
+                @endif
             
 
                 <li class="nav-header"> </li>

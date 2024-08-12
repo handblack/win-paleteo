@@ -33,6 +33,9 @@
                     <div class="col-md-12">
                         <label for="" class="mb-0">Motivo</label>
                         <select name="reason_id" id="" class="form-control" required>
+                            @if($mode == 'new')
+                                <option value="" selected disabled> -- MOTIVO -- </option>
+                            @endif
                             @foreach ($reason as $item)
                                 <option value="{{ $item->id }}" {{ ($item->id == $row->reason_id ? 'selected' : '') }}>{{ $item->identity }}</option>
                             @endforeach

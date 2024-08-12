@@ -26,11 +26,8 @@ return new class extends Migration
 
             // product
             $cfg = [
-                'pr',   // Producto
-                'pl',   // producto linea 
-                'ps',   // producto sublinea
-                'pc',   // producto categoria
-                'pf',   // producto familia                
+                'ra',   // Motivo
+                'rs',   // SubMotivo 
             ];
             foreach($cfg as $cf){
                 $table->enum("{$cf}_isgrant",['Y','N'])->default('N');
@@ -39,19 +36,7 @@ return new class extends Migration
                 $table->enum("{$cf}_isdeleted",['Y','N'])->default('N');
             }
 
-            // socio de negocio
-            $cfg = [
-                'bp',   // socio de negocio
-                'bd',   // sn - direcciones 
-                'bb',   // sn - cuentas de banco
-                'bc',   // sn - contactos                
-            ];
-            foreach($cfg as $cf){
-                $table->enum("{$cf}_isgrant",['Y','N'])->default('N');
-                $table->enum("{$cf}_iscreated",['Y','N'])->default('N');
-                $table->enum("{$cf}_isupdated",['Y','N'])->default('N');
-                $table->enum("{$cf}_isdeleted",['Y','N'])->default('N');
-            }
+             
 
             // cuentas corrientes
             $table->enum('cc_isgrant',['Y','N'])->default('N');
@@ -62,11 +47,7 @@ return new class extends Migration
             // OPERACIONES
             // socio de negocio
             $cfg = [
-                'o1',   // Pedidos
-                'o2',   // Nota de venta 
-                'o3',   // Cobranzas
-                'o4',   // Pagos
-                'o5',   // Asignacion
+                'pa',   // Paloteo
             ];
             foreach($cfg as $cf){
                 $table->enum("{$cf}_isgrant",['Y','N'])->default('N');
@@ -75,46 +56,19 @@ return new class extends Migration
                 $table->enum("{$cf}_isdeleted",['Y','N'])->default('N');
             }
             // Otras configuracions
-            $cfg = [
-                'ex',   // Tipo de Cambio
-                'td',   // Tipo de Documento 
-            ];
-            foreach($cfg as $cf){
-                $table->enum("{$cf}_isgrant",['Y','N'])->default('N');
-                $table->enum("{$cf}_iscreated",['Y','N'])->default('N');
-                $table->enum("{$cf}_isupdated",['Y','N'])->default('N');
-                $table->enum("{$cf}_isdeleted",['Y','N'])->default('N');
-            }
-
-            // REPORTES
             //r1 - Reportes de EECC
             $table->enum('r1_isgrant',['Y','N'])->default('N');
-            $table->enum('r2_isgrant',['Y','N'])->default('N');
-            $table->enum('r3_isgrant',['Y','N'])->default('N');
-            $table->enum('r4_isgrant',['Y','N'])->default('N');
-            $table->enum('r5_isgrant',['Y','N'])->default('N');
-            #$table->enum('r1_iscreated',['Y','N'])->default('N');
-            #$table->enum('r1_isupdated',['Y','N'])->default('N');
-            #$table->enum('r1_isdeleted',['Y','N'])->default('N');
+            #$table->enum('r2_isgrant',['Y','N'])->default('N');
+            #$table->enum('r3_isgrant',['Y','N'])->default('N');
 
             $table->timestamps();
         });
+
         $row = new VlTeamGrant();
-        $cat = ['o1','o2','o3','o4','o5',
-            'bp',   // socio de negocio
-            'bd',   // sn - direcciones 
-            'bb',   // sn - cuentas de banco
-            'bc',   // sn - contactos    
-
-            'pr', // Producto
-            'pl', // producto linea 
-            'ps', // producto sublinea
-            'pc', // producto categoria
-            'pf', // producto familia
-
-            'ex',   // Tipo de Cambio
-            'td',   // Tipo de Documento
-            
+        $cat = [
+            'ra',   // socio de negocio
+            'rs',   // sn - direcciones 
+            'pa',   // sn - cuentas de banco
         ];
         $cru = ['isgrant','iscreated','isupdated','isdeleted'];
         foreach($cat as $prefix){
@@ -125,11 +79,7 @@ return new class extends Migration
         }
         // Aqui procesamos a los que solo requiere GRANT (Solo Acceso)
         $cat = [
-            'r1',                
-            'r2',                
-            'r3',                
-            'r4',                
-            'r5',                
+            'r1'
         ];
         foreach($cat as $prefix){
             $field = "{$prefix}_isgrant";

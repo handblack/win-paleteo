@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ReasonController extends Controller
 {
-    private $grantname  = 'pr';
+    private $grantname  = 'ra';
     private $table      = 'reason';
     public function index(Request $request)
     {

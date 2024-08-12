@@ -13,7 +13,7 @@ class PaloteoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $grantname  = 'pr';
+    private $grantname  = 'pa';
     private $table      = 'paloteo';
     private $mes = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SET','OCT','NOV','DIC'];
     public function index(Request $request)

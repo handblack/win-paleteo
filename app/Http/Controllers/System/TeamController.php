@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\VlTeam;
+use App\Models\VlTeamGrant;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -73,7 +75,15 @@ class TeamController extends Controller
                 'session_team_id'       => $row->id,
                 'session_team_token'    => $row->token,
             ]);
-            return redirect()->route('teamgrant.index');
+            //Verificamos si existe el perfil
+            $p = VlTeamGrant::whereTeamId($row->id)->first();
+            if(!$p){
+                $p = VlTeamGrant::create([
+                    'team_id'   => $row->id,
+                    'token'     => User::get_token(),
+                ]);
+            }
+            return redirect()->route('teamgrant.edit',$p->token);
         }else{
             session_unset('session_team_id');
             session_unset('session_team_token');

@@ -27,22 +27,12 @@ return new class extends Migration
         });
 
         $u = new VlTeam();
+        $u->teamname = 'Asesores';
+        $u->token   = User::get_token();
+        $u->save();
+
+        $u = new VlTeam();
         $u->teamname = 'Administradores';
-        $u->token   = User::get_token();
-        $u->save();
-
-        $u = new VlTeam();
-        $u->teamname = 'Cotizaciones';
-        $u->token   = User::get_token();
-        $u->save();
-
-        $u = new VlTeam();
-        $u->teamname = 'Vendedores';
-        $u->token   = User::get_token();
-        $u->save();
-
-        $u = new VlTeam();
-        $u->teamname = 'Cobranzas';
         $u->token   = User::get_token();
         $u->save();
 

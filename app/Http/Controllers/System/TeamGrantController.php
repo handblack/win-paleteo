@@ -83,21 +83,10 @@ class TeamGrantController extends Controller
     {
         abort_if(auth()->user()->isadmin == 'N',403,'Acceso restringido');
         $row = VlTeamGrant::whereToken($id)->first();
-        $cat = ['o1','o2','o3','o4','o5',
-            'bp',   // socio de negocio
-            'bd',   // sn - direcciones 
-            'bb',   // sn - cuentas de banco
-            'bc',   // sn - contactos    
-
-            'pr', // Producto
-            'pl', // producto linea 
-            'ps', // producto sublinea
-            'pc', // producto categoria
-            'pf', // producto familia
-
-            'ex',   // Tipo de Cambio
-            'td',   // Tipo de Documento
-            
+        $cat = [
+            'ra',
+            'rs',
+            'pa',
         ];
         $cru = ['isgrant','iscreated','isupdated','isdeleted'];
         foreach($cat as $prefix){
@@ -108,15 +97,11 @@ class TeamGrantController extends Controller
         }
         // Aqui procesamos a los que solo requiere GRANT (Solo Acceso)
         $row->r1_isgrant            = $request->has('r1_isgrant') ? 'Y' : 'N';
-        $row->r2_isgrant            = $request->has('r2_isgrant') ? 'Y' : 'N';
-        $row->r3_isgrant            = $request->has('r3_isgrant') ? 'Y' : 'N';
-        $row->r4_isgrant            = $request->has('r4_isgrant') ? 'Y' : 'N';
-        $row->r5_isgrant            = $request->has('r5_isgrant') ? 'Y' : 'N';
         //$row->isactive   = $request->has('isactive') ? 'Y' : 'N';
         $row->isactive   = 'Y';
 
         $row->save();
-        return redirect()->route('teamgrant.index');
+        return redirect()->route('team.index');
     }
 
     /**

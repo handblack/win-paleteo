@@ -12,6 +12,9 @@ class VlTeamGrant extends Model
         'team_id',
         'token'
     ];
+    public function team(){
+        return $this->hasOne(VlTeam::class,'id','team_id');
+    }
     public function createdby(){    return $this->hasOne(User::class,'id','created_by');}
     public function updatedby(){    return $this->hasOne(User::class,'id','updated_by');}
 }
