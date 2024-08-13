@@ -34,10 +34,12 @@ class AuthController extends Controller
             //Estamos en produccion y ejecutamos validacion con LDAP
             #$mail = $this->authenticate2($request->email,$request->password);
             $mail = $this->authenticate($request->email,$request->password);
-            $user = User::where('email',$mail)->first();
-            if($user){
-                Auth::login($user);
-                return redirect()->intended('dashboard');
+            if($mail){
+                $user = User::where('email',$mail)->first();
+                if($user){
+                    Auth::login($user);
+                    return redirect()->intended('dashboard');
+                }
             }
             return back()->withErrors(['error' => 'Error en credenciales.']);
         }
