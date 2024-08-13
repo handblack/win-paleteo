@@ -77,7 +77,9 @@
 					<th>Asunto</th>
 					<th width="100">Estado</th>
 					<th width="100"></th>
+                    {{--
 					<th width="80"></th>
+                    --}}
                 </thead>
                 <tbody>
                     @forelse ($result as $item)
@@ -97,19 +99,19 @@
                                 @endswitch                                
                             </td>
                             <td class="text-right text-nowrap">{{ $item->updated_by ? $item->updatedby->name : $item->createdby->name }}</td>
+                            {{--
 							<td class="text-right text-nowrap">
                                 <a href="{{ route('alertline.show',$item->token) }}">
                                     <i class="far fa-file-pdf fa-fw"></i>
                                 </a>
-                                {{--
                                 <a href="{{ route('alert.edit',$item->token) }}">
                                     <i class="far fa-edit"></i>
                                 </a> |
                                 <a href="#" class="delete-record" data-id="{{ $item->id }}" data-url="{{ route('alert.destroy',$item->token) }}">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-                                --}} 
 							</td>
+                                --}} 
                         </tr>
                     @empty
                     @endforelse
