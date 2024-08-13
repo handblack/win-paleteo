@@ -136,7 +136,7 @@ class AlertController extends Controller
                         }
                         $sheet->setCellValue("G$key", $item->status == 'P' ? 'Pendiente' : 'Finalizado');
                         $sheet->setCellValue("H$key", $item->response);
-                        $sheet->setCellValue("I$key", $item->leader->lastname);
+                        $sheet->setCellValue("I$key", $item->leader_id ? $item->leader->lastname : '');
                         $sheet->setCellValue("J$key", $item->user->lastname);
                         $sheet->setCellValue("K$key", $item->subject);
                         $sheet->setCellValue("L$key", $item->message);
