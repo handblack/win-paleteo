@@ -76,7 +76,7 @@
 					<th width="185">FECHA</th>
 					<th>Asunto</th>
 					<th width="100">Estado</th>
-					<th width="100"></th>
+					<th width="100">Creado Por</th>
                     {{--
 					<th width="80"></th>
                     --}}
