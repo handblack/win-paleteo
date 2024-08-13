@@ -76,13 +76,13 @@
                         <textarea name="message" id="message"  rows="4" class="form-control" placeholder="Respuesta">{{ $row->response }}</textarea>
                     </div>
                 </div>
-                --}}
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <label class="mb-0">Archivo PDF, DOC,y XLS</label>
                         <input type="file" class=form-control>
                     </div>
                 </div>
+                --}}
 
             </div>
             <div class="card-footer">

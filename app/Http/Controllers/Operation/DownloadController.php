@@ -73,8 +73,8 @@ class DownloadController extends Controller
                 $sheet->setCellValueExplicit("B$key", Carbon::parse($item->created_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 
                 $sheet->setCellValue("C$key", '');
-                $sheet->setCellValue("D$key", $item->createdby->lastname);
-                $sheet->setCellValue("E$key", $item->createdby->name);
+                $sheet->setCellValue("D$key", $item->lastname);
+                $sheet->setCellValue("E$key", $item->name);
                 $sheet->setCellValue("F$key", $item->program);
                 $sheet->setCellValueExplicit("G$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("H$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
