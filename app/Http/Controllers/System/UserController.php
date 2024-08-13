@@ -88,22 +88,25 @@ class UserController extends Controller
                 $spreadsheet = new Spreadsheet;
                 $sheet       = $spreadsheet->getActiveSheet();
                 $sheet->setCellValue('A2', 'UserLogin');
-                $sheet->setCellValue('B2', 'Creado');
+                $sheet->setCellValue('B2', 'Actualizado');
                 $sheet->setCellValue('C2', 'NombreCompleto');
                 $sheet->setCellValue('D2', 'Antiguedad');
                 $sheet->setCellValue('E2', 'Programa');
                 $sheet->setCellValue('F2', 'Supervisor');
-                $sheet->getStyle('A2:F2')->applyFromArray(['font' => ['bold' => true]]);
-                $sheet->getStyle('A2:F2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
+                $sheet->setCellValue('G2', 'Perfil');
+                $sheet->setCellValue('H2', 'ActualizadoPor');
+                $sheet->getStyle('A2:H2')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->getStyle('A2:H2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
                 $key=2;
                 foreach($result as $item){
                     $key++;
                     $sheet->setCellValue("A$key", $item->name);
-                    $sheet->setCellValueExplicit("B$key", Carbon::parse($item->created_at)->format('d/m/Y H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                    $sheet->setCellValueExplicit("B$key", Carbon::parse($item->updated_at)->format('d/m/Y H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                     $sheet->setCellValue("C$key", $item->lastname);
                     $sheet->setCellValue("D$key", $item->age);
                     $sheet->setCellValue("E$key", $item->program);
-                    $sheet->setCellValue("F$key", $item->leader_id ? $item->leader->lastname : '');
+                    $sheet->setCellValue("G$key", $item->team->teamname);
+                    $sheet->setCellValue("H$key", $item->updated_by ? $item->updatedby->lastname : '');
                 }
                 $cols = explode(',','A,B,C');
                 foreach($cols as $col){

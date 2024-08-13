@@ -204,15 +204,16 @@ class AlertController extends Controller
                         $line->leader_id = $l->id;
                         $line->program   = trim($prg);
                         $line->age       = $age;
-                        $line->save();
                     }else{
                         $error++;
                         $line->leader_id = null;
                         $line->program   = trim($prg);
                         $line->age       = $age;
-                        $line->save();
+                        
                     }
                 }
+                $line->updated_by = auth()->user()->id;
+                $line->save();
                 #if(isset($p[0]) && isset($p[1])){
                 #    // hay datos, asi que buscamos el indice para actualizar el dato
                 #}
