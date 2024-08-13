@@ -4,6 +4,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
+@push('script')
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+@endpush
+
 
 @section('breadcrumb')
     <div class="content-header pb-0">
@@ -43,11 +47,14 @@
                                     </button>
                                     <a href="{{ route('alert.create') }}" class="btn btn-success">
                                         <i class="far fa-plus-square fa-fw"></i>
-                                        <span class="d-md-inline-block d-none">NUEVO</span>
                                     </a>
                                     <a href="{{ route('alert.show','download') }}" class="btn btn-outline-success">
                                         <i class="fas fa-download fa-fw"></i>
                                     </a>
+
+                                    <a class="btn btn-outline-success" href="#" data-toggle="modal"
+                                                data-target="#exampleModal"><i class="fas fa-upload fa-fw"></i>
+                                                </a>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +108,7 @@
                                 <a href="#" class="delete-record" data-id="{{ $item->id }}" data-url="{{ route('alert.destroy',$item->token) }}">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-                                --}}
+                                --}} 
 							</td>
                         </tr>
                     @empty
@@ -110,4 +117,51 @@
             </table>
         </div>
     </div>
+
+
+    
+    <!-- Modal PRICELIST - UPLOAD -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <form action="{{ route('user_upload_excel') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />                
+                <div class="modal-content">
+                    <div class="card mb-0">
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Subir archivo</strong></h3>
+                        </div>
+                        <div class="card-body bg-form">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="file" class="custom-file-input" id="exampleInputFile" accept=".xls,.xlsx">
+                                    <label class="custom-file-label" for="exampleInputFile">Selecciona el archivo</label>
+                                    @error('file')
+                                        <small class="text-danger">Verifique la Imagen</small>
+                                    @enderror
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-success ml-1">
+                                        <i class="fas fa-cloud-upload-alt fa-fw"></i>
+                                        Subir Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
+
+
+@push('script')
+<script>
+$(function () {
+    bsCustomFileInput.init();
+});
+</script>
+@endpush

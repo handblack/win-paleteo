@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('program',100)->nullable();
             $table->string('token',60)->nullable();
+            $table->string('age',10)->nullable();
             $table->enum('isactive',['Y','N'])->default('N');
             $table->enum('isadmin',['Y','N'])->default('N');
             $table->foreignId('team_id');

@@ -44,6 +44,9 @@
 									<i class="far fa-plus-square fa-fw"></i> 
 									<span class="d-md-inline-block d-none">NUEVO</span>
 								</a>
+								<a href="{{ route('user.show','download') }}" class="btn btn-outline-success">
+									<i class="fas fa-download fa-fw"></i>
+								</a>
 							</div>
 						</div>
 					</div>

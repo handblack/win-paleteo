@@ -52,6 +52,7 @@ class User extends Authenticatable
         ];
     }
 
+    public function leader(){    return $this->hasOne(User::class,'id','leader_id');}
     public function createdby(){    return $this->hasOne(User::class,'id','created_by');}
     public function updatedby(){    return $this->hasOne(User::class,'id','updated_by');}
     public static function get_group($id){ return VlParameter::whereGroupId($id)->get();}

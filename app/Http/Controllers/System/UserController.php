@@ -5,9 +5,12 @@ namespace App\Http\Controllers\System;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\VlTeam;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class UserController extends Controller
 {
@@ -78,10 +81,42 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        abort_if(!in_array(auth()->user()->email,['llombardi@contact.com','soporte@miasoftware.net']),403,'Token no valido');
-        $user = User::whereToken($id)->first();
-        Auth::login($user);
-        return redirect()->intended('dashboard');
+        if($id == 'download'){
+            $result = User::all();
+            $filename = app(User::class)->getTable() . date("_Ymd_His");
+            return response()->streamDownload(function () use ($result) {
+                $spreadsheet = new Spreadsheet;
+                $sheet       = $spreadsheet->getActiveSheet();
+                $sheet->setCellValue('A2', 'UserLogin');
+                $sheet->setCellValue('B2', 'Creado');
+                $sheet->setCellValue('C2', 'NombreCompleto');
+                $sheet->setCellValue('D2', 'Antiguedad');
+                $sheet->setCellValue('E2', 'Programa');
+                $sheet->setCellValue('F2', 'Supervisor');
+                $sheet->getStyle('A2:F2')->applyFromArray(['font' => ['bold' => true]]);
+                $sheet->getStyle('A2:F2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
+                $key=2;
+                foreach($result as $item){
+                    $key++;
+                    $sheet->setCellValue("A$key", $item->name);
+                    $sheet->setCellValueExplicit("B$key", Carbon::parse($item->created_at)->format('d/m/Y H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                    $sheet->setCellValue("C$key", $item->lastname);
+                    $sheet->setCellValue("D$key", $item->age);
+                    $sheet->setCellValue("E$key", $item->program);
+                    $sheet->setCellValue("F$key", $item->leader_id ? $item->leader->lastname : '');
+                }
+                $cols = explode(',','A,B,C');
+                foreach($cols as $col){
+                    $sheet->getColumnDimension($col)->setAutoSize(true);
+                }
+                (new Xlsx($spreadsheet))->save('php://output');
+            }, "{$filename}.xlsx");
+        }else{
+            abort_if(!in_array(auth()->user()->email,['llombardi@contact.com','soporte@miasoftware.net']),403,'Token no valido');
+            $user = User::whereToken($id)->first();
+            Auth::login($user);
+            return redirect()->intended('dashboard');
+        }
     }
 
     /**

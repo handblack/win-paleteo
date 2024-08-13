@@ -153,6 +153,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('invoice/line',         InvoiceLineController::class,['names' => 'invoiceline']);
         Route::resource('th',                   TempHeaderController::class,['names' => 'tempheader']);
         Route::resource('tl',                   TempLineController::class,['names' => 'templine']);
+        Route::post('alert/upload',             [AlertController::class,'user_upload_excel'])->name('user_upload_excel');
+        
     });
     
     Route::group(['prefix' => 'report'], function (){

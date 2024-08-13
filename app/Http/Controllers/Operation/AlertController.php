@@ -10,6 +10,7 @@ use App\Models\VlSource;
 use App\Models\VlvAlert;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -171,4 +172,55 @@ class AlertController extends Controller
     {
         //
     }
+
+
+    public function user_upload_excel(Request $request){
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+        $error = 0;
+        $file = $request->file('file');
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+        foreach ($sheetData as $index => $row) {
+            // Ignorar la primera fila si contiene encabezados
+            if ($index == 0) {
+                continue;
+            }
+            if(isset($row[0])){
+                $user = $row[0];
+                $lead = $row[2];
+                $prg  = $row[3];
+                $age  = $row[4];
+                $un = strtolower(trim($user).'@contact.com');
+                $line = User::whereEmail($un)
+                            ->whereTeamId(1)
+                            ->first();
+                if($line){
+                    $l = User::whereName(trim($lead))
+                                ->whereNotIn('team_id',[1])
+                                ->first();
+                    if($l){
+                        $line->leader_id = $l->id;
+                        $line->program   = trim($prg);
+                        $line->age       = $age;
+                        $line->save();
+                    }else{
+                        $error++;
+                        $line->leader_id = null;
+                        $line->program   = trim($prg);
+                        $line->age       = $age;
+                        $line->save();
+                    }
+                }
+                #if(isset($p[0]) && isset($p[1])){
+                #    // hay datos, asi que buscamos el indice para actualizar el dato
+                #}
+            }else{
+                return redirect()->route('alert.index')->with('error', 'El archivo no tiene la estructura correcta');        
+            }
+        }
+        return redirect()->route('alert.index')->with('message', 'Archivo cargado'.($error > 0 ? ", se encontraron {$error} inconsistencias" : ''));
+    } 
+
 }
