@@ -30,7 +30,7 @@
         <script>
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
-                    toastr.success('{{ $error }}');
+                    toastr.error('{{ $error }}');
                 @endforeach
             @endif
             @if (\Session::has('error'))
