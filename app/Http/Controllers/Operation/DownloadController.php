@@ -75,7 +75,7 @@ class DownloadController extends Controller
                 $sheet->setCellValue("C$key", '');
                 $sheet->setCellValue("D$key", $item->createdby->lastname);
                 $sheet->setCellValue("E$key", $item->createdby->name);
-                $sheet->setCellValue("F$key", 'WIN');
+                $sheet->setCellValue("F$key", $item->program);
                 $sheet->setCellValueExplicit("G$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("H$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicit("I$key", $item->did,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
