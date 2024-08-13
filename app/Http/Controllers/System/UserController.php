@@ -105,6 +105,7 @@ class UserController extends Controller
                     $sheet->setCellValue("C$key", $item->lastname);
                     $sheet->setCellValue("D$key", $item->age);
                     $sheet->setCellValue("E$key", $item->program);
+                    $sheet->setCellValue("F$key", $item->leader_id ? $item->leader->lastname : '');
                     $sheet->setCellValue("G$key", $item->team->teamname);
                     $sheet->setCellValue("H$key", $item->updated_by ? $item->updatedby->lastname : '');
                 }
