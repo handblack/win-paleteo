@@ -68,8 +68,8 @@
                 <thead>
 					<th width="185">FECHA</th>
 					<th>Asunto</th>
-					<th>Estado</th>
-					<th></th>
+					<th width="100">Estado</th>
+					<th width="100"></th>
 					<th width="80"></th>
                 </thead>
                 <tbody>
@@ -77,15 +77,31 @@
                         <tr id="tr-{{ $item->id }}">
                             <td class="{{ $item->isactive == 'N' ? 'tachado' : '' }}">{{ $item->created_at }}</td>
                             <td class="{{ $item->isactive == 'N' ? 'tachado' : '' }}">{{ $item->subject }}</td>
-                            <td></td>
+                            <td>
+                                @switch($item->status)
+                                    @case('P')
+                                        <span class="badge badge-warning">Pendiente</span>
+                                        @break
+                                    @case('R')
+                                        <span class="badge badge-success">Finalizado</span>
+                                        @break
+                                    @default
+                                        
+                                @endswitch                                
+                            </td>
                             <td class="text-right text-nowrap">{{ $item->updated_by ? $item->updatedby->name : $item->createdby->name }}</td>
 							<td class="text-right text-nowrap">
-                                <a href="{{ route('paloteo.edit',$item->token) }}">
+                                <a href="{{ route('alertline.show',$item->token) }}">
+                                    <i class="far fa-file-pdf fa-fw"></i>
+                                </a>
+                                {{--
+                                <a href="{{ route('alert.edit',$item->token) }}">
                                     <i class="far fa-edit"></i>
                                 </a> |
-                                <a href="#" class="delete-record" data-id="{{ $item->id }}" data-url="{{ route('paloteo.destroy',$item->token) }}">
+                                <a href="#" class="delete-record" data-id="{{ $item->id }}" data-url="{{ route('alert.destroy',$item->token) }}">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
+                                --}}
 							</td>
                         </tr>
                     @empty

@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('parameter',            ParameterController::class,['names' => 'parameter']);
         Route::post('parameter',                [ParameterController::class,'api_datatable'])->name('parameter.ajax');
         Route::post('ajax/user',                [User::class,           'api_user'])->name('api_user');
+        Route::post('ajax/asesor',                [User::class,           'api_asesor'])->name('api_asesor');
     });
     Route::group(['prefix' => 'master'], function (){
         Route::resource('doctype/manager',      DocTypeController::class,  ['names' => 'doctype']);

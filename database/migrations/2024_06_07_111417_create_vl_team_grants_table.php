@@ -49,6 +49,7 @@ return new class extends Migration
             $cfg = [
                 'pa',   // Paloteo
                 'al',   // Sistema de mensajes
+                'ar',   // Respuesta de mensaje
             ];
             foreach($cfg as $cf){
                 $table->enum("{$cf}_isgrant",['Y','N'])->default('N');
@@ -67,9 +68,11 @@ return new class extends Migration
 
         $row = new VlTeamGrant();
         $cat = [
-            'ra',   // socio de negocio
-            'rs',   // sn - direcciones 
-            'pa',   // sn - cuentas de banco
+            'ra',   //
+            'rs',   //
+            'pa',   // 
+            'al',   // 
+            'ar',   // 
         ];
         $cru = ['isgrant','iscreated','isupdated','isdeleted'];
         foreach($cat as $prefix){

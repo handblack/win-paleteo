@@ -58,14 +58,53 @@ return new class extends Migration
         */
         $u = new User();
         $u->name     = 'elias.fuentes';
+        $u->lastname = 'ELIAS FUENTES';
         $u->email    = 'soporte@miasoftware.net';
         $u->password = Hash::make('x5w93kra');
         $u->isactive = 'Y';
         $u->isadmin  = 'Y';
-        $u->team_id  = 1;
+        $u->team_id  = 2;  //Administrador
         $u->token    = $u->get_token(); 
         $u->save();
 
+        $u = new User();
+        $u->name     = '40214719';
+        $u->lastname = 'ELIAS FUENTES';
+        $u->email    = '40214719@contact.com';
+        $u->password = Hash::make('x5w93kra');
+        $u->isactive = 'Y';
+        $u->isadmin  = 'N';
+        $u->leader_id= 4; // sujeto con el supervidor
+        $u->team_id  = 1;  // Asesor
+        $u->token    = $u->get_token(); 
+        $u->program  = 'WOM';
+        $u->save();
+        
+        $u = new User();
+        $u->name     = '10065309';
+        $u->lastname = 'LUIS LOMBARDI';
+        $u->email    = '10065309@contact.com';
+        $u->password = Hash::make('1235667');
+        $u->isactive = 'Y';
+        $u->isadmin  = 'N';
+        //$u->leader_id= NULL;
+        $u->team_id  = 3; // Coordinador
+        $u->token    = $u->get_token(); 
+        $u->program  = 'WOM';
+        $u->save();
+        
+        $u = new User();
+        $u->name     = '10138812';
+        $u->lastname = 'PEDRO PICAPIEDRA';
+        $u->email    = '10138812@contact.com';
+        $u->password = Hash::make('1235667');
+        $u->isactive = 'Y';
+        $u->isadmin  = 'N';
+        //$u->leader_id= NULL;
+        $u->team_id  = 4; // Supervisor
+        $u->token    = $u->get_token(); 
+        $u->program  = 'WOM';
+        $u->save();
         
     }
 

@@ -155,8 +155,7 @@
                     <div class="col-md-6 pr-0 pl-0">
                         @php
                             $master = [
-                                ['title' => 'Paloteo',                  'prefix' => 'pa'],
-                                ['title' => 'Sistema de Mensajes',      'prefix' => 'al'],
+                                ['title' => 'Paloteo',                  'prefix' => 'pa'],                                
                             ];
                         @endphp
                         <table class="table table-sm table-sm2 table-hover table-borderless">
@@ -234,14 +233,83 @@
                     </div>
 
                     <div class="col-md-6 pr-0 pl-0">
-                       
+                        @php
+                            $master = [
+                                ['title' => 'Gestor de Mensajes',      'prefix' => 'al'],
+                                ['title' => 'Respuesta de Mensajes',   'prefix' => 'ar'],
+                            ];
+                        @endphp
                         <table class="table table-sm table-sm2 table-hover table-borderless">
                             <thead>
                                 <tr>
-                                    <th>&nbsp;</th>
+                                    <th>Mensajeria</th>
+                                    <th class=""><i class="fas fa-sign-in-alt fa-fw"></i></th>
+                                    <th class=""><i class="far fa-file fa-fw"></i></th>
+                                    <th class=""><i class="fas fa-edit fa-fw"></i></th>
+                                    <th class=""><i class="far fa-trash-alt fa-fw"></i></th>
                                 </tr>
                             </thead>
-                             
+                            <tbody>
+                                @foreach ($master as $item)
+                                    @php
+                                        $fieldgrant = "{$item['prefix']}_isgrant";
+                                        $fieldcreated = "{$item['prefix']}_iscreated";
+                                        $fieldupdated = "{$item['prefix']}_isupdated";
+                                        $fielddeleted = "{$item['prefix']}_isdeleted";
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $item['title'] }}</td>
+                                        <td width="50" class="text-left">
+                                            <div class="form-group mb-0">
+                                                <div
+                                                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        name="{{ $fieldgrant }}" id="{{ $fieldgrant }}"
+                                                        {{ $row->$fieldgrant == 'Y' ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                        for="{{ $fieldgrant }}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50" class="text-left">
+                                            <div class="form-group mb-0">
+                                                <div
+                                                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        name="{{ $fieldcreated }}" id="{{ $fieldcreated }}"
+                                                        {{ $row->$fieldcreated == 'Y' ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                        for="{{ $fieldcreated }}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50" class="text-left">
+                                            <div class="form-group mb-0">
+                                                <div
+                                                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        name="{{ $fieldupdated }}" id="{{ $fieldupdated }}"
+                                                        {{ $row->$fieldupdated == 'Y' ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                        for="{{ $fieldupdated }}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50" class="text-left">
+                                            <div class="form-group mb-0">
+                                                <div
+                                                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        name="{{ $fielddeleted }}" id="{{ $fielddeleted }}"
+                                                        {{ $row->$fielddeleted == 'Y' ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                        for="{{ $fielddeleted }}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

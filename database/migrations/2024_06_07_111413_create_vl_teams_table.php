@@ -36,6 +36,16 @@ return new class extends Migration
         $u->token   = User::get_token();
         $u->save();
 
+        $u = new VlTeam();
+        $u->teamname = 'Coordinadores';
+        $u->token   = User::get_token();
+        $u->save();
+        
+        $u = new VlTeam();
+        $u->teamname = 'Supervisor';
+        $u->token   = User::get_token();
+        $u->save();
+
     }
 
     /**

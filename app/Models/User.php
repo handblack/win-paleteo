@@ -118,6 +118,36 @@ class User extends Authenticatable
                             ->get();
         return response()->json(['results' => $result]);
     }
+    public function api_asesor(Request $request){
+        $s = $request->s;
+        $q = str_replace(' ','%',"%{$request->q}").'%';
+        $result = User::select(
+                                'id as id',
+                                DB::raw("CONCAT(name,' - ',lastname) as text"),
+                            )
+                            ->where('team_id',1)
+                            ->where(function($query) use ($q){
+                                $query->orWhere('name','LIKE',$q);
+                                $query->orWhere('lastname','LIKE',$q);
+                            })
+                            ->orderBy('lastname')
+                            ->limit(env('RESULT_SELECT2',30))
+                            ->get();
+        return response()->json(['results' => $result]);
+    }
+
+    public static function  get_message_asesor(){
+        return VlAlert::whereUserId(auth()->user()->id)
+                        ->whereStatus('P')
+                        ->whereIsactive('Y')
+                        ->get();
+    }
+    public static function get_message_supervisor(){
+        return VlAlert::whereLeaderId(auth()->user()->id)
+                        ->whereStatus('P')
+                        ->whereIsactive('Y')
+                        ->get();
+    }
 }
 
 

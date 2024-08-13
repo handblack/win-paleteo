@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('documentno',15)->nullable();
             $table->string('did',15)->nullable();
             $table->string('comment',200)->nullable();
+            $table->string('program',100)->nullable();
             $table->string('month',2)->nullable();
             $table->enum('isincidencia',['Y','N']);
             $table->foreignId('incidencia_id')->nullable();  // solo maneja dentro del select valores fijos

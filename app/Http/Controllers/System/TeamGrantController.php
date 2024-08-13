@@ -88,6 +88,7 @@ class TeamGrantController extends Controller
             'rs',
             'pa',
             'al',
+            'ar',
         ];
         $cru = ['isgrant','iscreated','isupdated','isdeleted'];
         foreach($cat as $prefix){

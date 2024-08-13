@@ -90,6 +90,9 @@ class AlertController extends Controller
         $row->token         = User::get_token();
         $row->created_by    = auth()->user()->id;
         $row->save();
+        $row->leader_id = $row->user->leader_id;
+        $row->program   = $row->user->program; 
+        $row->save();
         return redirect()->route("{$this->table}.index")->with('message','Registro creado');
         //return redirect()->route('alert.list');
     }
@@ -99,41 +102,50 @@ class AlertController extends Controller
      */
     public function show(string $id)
     {
-        abort_if($id!='download',403,'No se puede descargar');
-        $result = VlvAlert::all();
-        $filename = app(VlvAlert::class)->getTable() . date("_Ymd_His");
-        return response()->streamDownload(function () use ($result) {
-            $spreadsheet = new Spreadsheet;
-            $sheet       = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A2', 'Origen');
-            $sheet->setCellValue('B2', 'Mail');
-            $sheet->setCellValue('C2', 'Fecha.Mail');
-            $sheet->setCellValue('D2', 'Hora.Mail');
-            $sheet->setCellValue('E2', 'Fecha.Rta');
-            $sheet->setCellValue('F2', 'Hora.Rta');
-            $sheet->setCellValue('G2', 'Estado');
-            $sheet->setCellValue('H2', 'Resultado');
-            $sheet->setCellValue('I2', 'Supervisor');
-            $sheet->setCellValue('J2', 'Asesor');
-            $sheet->setCellValue('K2', 'Detalle');
-            $sheet->getStyle('A2:K2')->applyFromArray(['font' => ['bold' => true]]);
-            $sheet->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
-            $key=2;
-            foreach($result as $item){
-                $key++;
-                $sheet->setCellValue("C$key", Carbon::parse($item->created_at)->format('d/m/Y'));
-                $sheet->setCellValueExplicit("D$key", Carbon::parse($item->created_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                if($item->response_at){
-                    $sheet->setCellValue("E$key", Carbon::parse($item->response_at)->format('d/m/Y'));
-                    $sheet->setCellValueExplicit("F$key", Carbon::parse($item->response_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                }
-            }
-            $cols = explode(',','A,B,C');
-            foreach($cols as $col){
-                $sheet->getColumnDimension($col)->setAutoSize(true);
-            }
-            (new Xlsx($spreadsheet))->save('php://output');
-        }, "{$filename}.xlsx");
+     
+                abort_if($id!='download',403,'No se puede descargar');
+                $result = VlvAlert::all();
+                $filename = app(VlvAlert::class)->getTable() . date("_Ymd_His");
+                return response()->streamDownload(function () use ($result) {
+                    $spreadsheet = new Spreadsheet;
+                    $sheet       = $spreadsheet->getActiveSheet();
+                    $sheet->setCellValue('A2', 'Origen');
+                    $sheet->setCellValue('B2', 'Mail');
+                    $sheet->setCellValue('C2', 'Fecha.Mail');
+                    $sheet->setCellValue('D2', 'Hora.Mail');
+                    $sheet->setCellValue('E2', 'Fecha.Rta');
+                    $sheet->setCellValue('F2', 'Hora.Rta');
+                    $sheet->setCellValue('G2', 'Estado');
+                    $sheet->setCellValue('H2', 'Resultado');
+                    $sheet->setCellValue('I2', 'Supervisor');
+                    $sheet->setCellValue('J2', 'Asesor');
+                    $sheet->setCellValue('K2', 'Asunto');
+                    $sheet->setCellValue('L2', 'Detalle');
+                    $sheet->getStyle('A2:L2')->applyFromArray(['font' => ['bold' => true]]);
+                    $sheet->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
+                    $key=2;
+                    foreach($result as $item){
+                        $key++;
+                        $sheet->setCellValue("A$key", $item->source->identity);
+                        $sheet->setCellValue("C$key", Carbon::parse($item->created_at)->format('d/m/Y'));
+                        $sheet->setCellValueExplicit("D$key", Carbon::parse($item->created_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                        if($item->response_at){
+                            $sheet->setCellValue("E$key", Carbon::parse($item->response_at)->format('d/m/Y'));
+                            $sheet->setCellValueExplicit("F$key", Carbon::parse($item->response_at)->format('H:i:s'),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                        }
+                        $sheet->setCellValue("G$key", $item->status == 'P' ? 'Pendiente' : 'Finalizado');
+                        $sheet->setCellValue("H$key", $item->response);
+                        $sheet->setCellValue("I$key", $item->leader->lastname);
+                        $sheet->setCellValue("J$key", $item->user->lastname);
+                        $sheet->setCellValue("K$key", $item->subject);
+                        $sheet->setCellValue("L$key", $item->message);
+                    }
+                    $cols = explode(',','A,B,C');
+                    foreach($cols as $col){
+                        $sheet->getColumnDimension($col)->setAutoSize(true);
+                    }
+                    (new Xlsx($spreadsheet))->save('php://output');
+                }, "{$filename}.xlsx");
     }
 
     /**

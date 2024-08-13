@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\VlTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -77,7 +78,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort_if(!in_array(auth()->user()->email,['llombardi@contact.com','soporte@miasoftware.net']),403,'Token no valido');
+        $user = User::whereToken($id)->first();
+        Auth::login($user);
+        return redirect()->intended('dashboard');
     }
 
     /**

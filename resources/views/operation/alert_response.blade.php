@@ -46,37 +46,28 @@
                 <div class="row mb-2">
                     <div class="col-md-3">
                         <label class="mb-0">Origen</label>
-                        <select name="source_id" id="" class="form-control">
-                            @foreach ($sou as $item)
-                                <option value="{{ $item->id }}">{{ $item->identity }}</option>
-                            @endforeach
-                        </select>
+                        <span class="input-group-text">{{ $row->source->identity }}</span>
                     </div> 
                     <div class="col-md-9">
-                        <label class="mb-0">AsuntoX</label>
-                        <input type="text" class="form-control" name="subject" id="subject"
-                            value="{{ old('subject', $row->subject) }}" required />
+                        <label class="mb-0">Asunto</label>
+                        <span class="input-group-text">{{ $row->subject }}</span>
                     </div>                    
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <select name="user_id" id="user_id" class="form-control select2-user">
-
-                        </select>
+                        <span class="input-group-text">{{ $row->user->name . ' - ' . $row->user->lastname  }}</span>
                     </div>  
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="message" id="message"  rows="4" class="form-control" placeholder="Mensaje">{{ $row->message }}</textarea>
+                        <textarea rows="4" class="form-control" disabled>{{ $row->message }}</textarea>
                     </div>
                 </div>
-                {{--
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="message" id="message"  rows="4" class="form-control" placeholder="Respuesta">{{ $row->response }}</textarea>
+                        <textarea name="response" id="response"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
                     </div>
                 </div>
-                --}}
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <label class="mb-0">Archivo PDF, DOC,y XLS</label>
@@ -89,42 +80,12 @@
                 <a href="#" onclick="history.back();" class="btn btn-danger"><i class="fas fa-times fa-fw"></i>
                     CANCELAR</a>
                 <button type="submit" class="btn btn-primary ml-1"><i class="fas fa-save fa-fw"></i>
-                    {{ $mode == 'new' ? 'CREAR' : 'MODIFICAR' }} </button>
+                    {{ $mode == 'new' ? 'CREAR' : 'ENVIAR' }} </button>
             </div>
         </div>
     </form>
 
-    @if (count($log))
-        <div class="row">
-            <div class="col-md-12">
-                <table width="100%" class="table-hover table-borderless" style="line-height:1;font-size:0.8rem;">
-                    <tbody>
-                        @foreach ($log as $item)
-                            <tr>
-                                <td width="150" style="vertical-align: top;">
-                                    <strong>{{ $item->datelog }}</strong>
-                                </td>
-                                <td style="vertical-align: top;">
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach ($item->data_before as $k => $v)
-                                            @if ($item->data_before->$k != $item->data_after->$k && $k != 'updated_at')
-                                                <li>{{ $k }} <i class="fas fa-angle-double-right fa-fw"></i>
-                                                    {{ is_array($v) ? implode(',', $v) : $v }}</li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td class="text-right" style="vertical-align: top;">
-                                    {{ $item->createdby->name }}
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
+  
 
 @endsection
 

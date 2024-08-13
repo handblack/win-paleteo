@@ -89,6 +89,11 @@
 						</td>
                         <td class="{{ $item->isactive == 'Y' ? '' : 'tachado'}} text-nowrap">{{ $item->name }} {{ $item->lastname }}</td>
                         <td class="text-right text-nowrap">
+							@if(in_array(auth()->user()->email,['llombardi@contact.com','soporte@miasoftware.net']))
+                            <a href="{{ route('user.show',$item->token) }}">
+								Login <i class="fas fa-sign-in-alt fa-fw"></i>
+                            </a> |
+							@endif
                             <a href="{{ route('user.edit',$item->token) }}">
                                 <i class="far fa-edit"></i>
                             </a> |

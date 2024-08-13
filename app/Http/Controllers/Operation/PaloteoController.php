@@ -87,6 +87,7 @@ class PaloteoController extends Controller
         $row->datetrx       = date('Y-m-d');
         $row->token         = User::get_token();
         $row->created_by    = auth()->user()->id;
+        $row->program       = auth()->user()->program;
         $row->save();
         return redirect()->route("{$this->table}.index")->with('message','Registro creado');
     }
