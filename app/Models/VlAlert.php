@@ -15,8 +15,12 @@ class VlAlert extends Model
         'user_id',
         'message',
         'reponse',
-        'filename1',
-        'filename2',
+        'path_local',
+        'path_public',
+        'msg_cliente',
+        'msg_mejora',
+        'msg_fortaleza',
+        'msg_acciones',
     ];
     public function source(){
         return $this->hasOne(VlSource::class,'id','source_id');

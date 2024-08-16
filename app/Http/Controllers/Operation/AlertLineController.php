@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Operation;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\VlAlert;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AlertLineController extends Controller
 {
@@ -76,12 +79,28 @@ class AlertLineController extends Controller
         ]);
         $row = VlAlert::whereToken($id)->first();
         abort_if(!$row,403,'Token no valido');
+        
+        $foto           = $request->file('foto');
+        $filename       = $foto->getClientOriginalName();
+        $extension      = $foto->getClientOriginalExtension();
+
         $row->response_at   = date('Y-m-d H:i:s');
         $row->response      = $request->response;
         $row->status        = 'R';
         $row->isactive      = 'N';
         $row->updated_by    = auth()->user()->id;
+        $row->path_public   = $filename;
+        $row->path_local    = User::get_token().'.'.$extension;
+        $row->extension     = $extension;
         $row->save();
+        // ahora almacenamos la imagen en el storage
+        $imagenes= $request->file('foto')->store('images');
+        Storage::url($imagenes);
+        //Storage::disk('fotos')->put($row->path_local,  File::get($foto));
+        /*
+        Storage::disk('fotos')->put($row->path_local,  File::get($foto));
+        */
+
         return redirect()->route('dashboard')->with('success','Mensaje enviado');
     }
 

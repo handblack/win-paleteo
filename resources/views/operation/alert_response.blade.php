@@ -34,7 +34,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ $url }}" method="POST" autocomplete="off">
+    <form action="{{ $url }}" method="POST" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" name="_mode" value="{{ $mode }}" />
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <input type="hidden" name="_method" value="{{ $mode == 'edit' ? 'PUT' : '' }}" />
@@ -65,13 +65,28 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="response" id="response"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                        <input type="text" name="msg_cliente" value="{{ $row->msg_cliente }}">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <textarea name="msg_mejora" id="msg_mejora"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <textarea name="msg_fortaleza" id="msg_fortaleza"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <textarea name="msg_acciones" id="msg_acciones"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <label class="mb-0">Archivo PDF, DOC,y XLS</label>
-                        <input type="file" class=form-control>
+                        <input type="file" name="foto" id="file-input" class=form-control>
                     </div>
                 </div>
 

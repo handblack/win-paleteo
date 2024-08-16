@@ -20,10 +20,16 @@ return new class extends Migration
             
             $table->text('message')->nullable();
             $table->text('response')->nullable();
+
+            $table->string('msg_cliente')->nullable();
+            $table->string('msg_mejora')->nullable();
+            $table->string('msg_fortaleza')->nullable();
+            $table->string('msg_acciones')->nullable();
+
             $table->text('result')->nullable();
-            $table->string('path1_local',200)->nullable();
-            $table->string('path1_public',200)->nullable();
-            $table->string('path2_local',200)->nullable();
+            $table->string('path_local',200)->nullable();
+            $table->string('path_public',200)->nullable();
+            $table->string('extension',200)->nullable();
             $table->string('path2_public',200)->nullable();
             $table->enum('status',['P','R','A'])->default('P'); // P=>Pendiente /R->Recibido / A->Anulado
             $table->enum('isactive',['Y','N'])->default('Y');
