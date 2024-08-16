@@ -31,6 +31,7 @@ class UserController extends Controller
         }
         $result = User::orWhere('email','LIKE',$q)
                         ->orWhere('name','LIKE',$q)
+                        ->orWhere('lastname','LIKE',$q)
                         ->orderBy('isactive','ASC')
                         ->orderBy('email','ASC')
                         ->paginate(env('PAGINATE',18));
