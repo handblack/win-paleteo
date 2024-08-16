@@ -65,22 +65,22 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <input type="text" name="msg_cliente" value="{{ $row->msg_cliente }}">
+                        <input type="text" name="msg_cliente" value="{{ $row->msg_cliente }}" class="form-control">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="msg_mejora" id="msg_mejora"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                        <textarea name="msg_mejora" id="msg_mejora"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_mejora }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="msg_fortaleza" id="msg_fortaleza"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                        <textarea name="msg_fortaleza" id="msg_fortaleza"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_fortaleza }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <textarea name="msg_acciones" id="msg_acciones"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->response }}</textarea>
+                        <textarea name="msg_acciones" id="msg_acciones"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_acciones }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
