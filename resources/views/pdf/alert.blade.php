@@ -56,7 +56,7 @@
                 <tr>
                     <td>
                         <span>OPORTUNIDAD DE MEJORA</span>
-                        <p>{{ $row->msg_oportunidad }}</p>
+                        <p>{{ $row->msg_mejora }}</p>
                     </td>
                 </tr>
                 <tr>
