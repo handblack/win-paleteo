@@ -65,38 +65,34 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <label for="mb-0">Voz Cliente</label>
-                        <input type="text" name="msg_cliente" value="{{ $row->msg_cliente }}" class="form-control">
+                        <label for="mb-0" class="mb-0">Voz Cliente</label>
+                        <input type="text" name="msg_cliente" value="{{ old('msg_cliente',$row->msg_cliente) }}" class="form-control" required>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <label for="mb-0">Oportunidad de Mejora</label>
-                        <textarea name="msg_mejora" id="msg_mejora"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_mejora }}</textarea>
+                        <label for="mb-0" class="mb-0">Oportunidad de Mejora</label>
+                        <textarea name="msg_mejora" id="msg_mejora"  rows="4" class="form-control" placeholder="Respuesta" required>{{ old('msg_mejora',$row->msg_mejora) }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        
-                        <label for="mb-0">Fortalezas en la llamada</label>
-                        <textarea name="msg_fortaleza" id="msg_fortaleza"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_fortaleza }}</textarea>
+                        <label for="mb-0" class="mb-0">Fortalezas en la llamada</label>
+                        <textarea name="msg_fortaleza" id="msg_fortaleza"  rows="4" class="form-control" placeholder="Respuesta" required>{{ old('msg_fortaleza',$row->msg_fortaleza) }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        
-                        <label for="mb-0">Acciones correctivas</label>
-                        
-                        <textarea name="msg_acciones" id="msg_acciones"  rows="4" class="form-control" placeholder="Respuesta" required>{{ $row->msg_acciones }}</textarea>
+                        <label for="mb-0" class="mb-0">Acciones correctivas</label>
+                        <textarea name="msg_acciones" id="msg_acciones"  rows="4" class="form-control" placeholder="Respuesta" required>{{ old('msg_acciones',$row->msg_acciones) }}</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <label class="mb-0">Archivo PDF, DOC,y XLS</label>
-                        <input type="file" name="foto" id="file-input" class=form-control>
+                        <label class="mb-0" class="mb-0">Adjuntar archivo de IMAGEN</label>
+                        <input type="file" name="foto" id="file-input" accept="image/png, image/gif, image/jpeg" class="form-control">
                     </div>
                 </div>
-
             </div>
             <div class="card-footer">
                 <a href="#" onclick="history.back();" class="btn btn-danger"><i class="fas fa-times fa-fw"></i>

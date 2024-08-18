@@ -75,7 +75,10 @@ class AlertLineController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'response' => 'required'
+            'msg_cliente'   => 'required',
+            'msg_mejora'    => 'required',
+            'msg_fortaleza' => 'required',
+            'msg_acciones'  => 'required'
         ]);
         $row = VlAlert::whereToken($id)->first();
         abort_if(!$row,403,'Token no valido');
