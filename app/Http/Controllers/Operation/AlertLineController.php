@@ -96,6 +96,10 @@ class AlertLineController extends Controller
         $filename       = $foto->getClientOriginalName();
         $extension      = $foto->getClientOriginalExtension();
 
+        $row->msg_cliente   = $request->msg_cliente;
+        $row->msg_mejora    = $request->msg_mejora;
+        $row->msg_fortaleza = $request->msg_fortaleza;
+        $row->msg_acciones  = $request->msg_acciones;
         $row->response_at   = date('Y-m-d H:i:s');
         $row->response      = $request->response;
         $row->status        = 'R';
