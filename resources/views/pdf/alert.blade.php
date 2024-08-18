@@ -20,33 +20,33 @@
 
     <main>
         <div class="margin-top">
-            <table>
+            <table width="100%">
                 <tr>
                     <td>ASUNTO EMAIL:</td>
-                    <td></td>
+                    <td>{{ $row->subject }}</td>
                 </tr>
                 <tr>
                     <td>FECHA Y HORA EMAIL:</td>
-                    <td></td>
+                    <td>{{ $row->created_at }}</td>
                 </tr>
                 <tr>
                     <td>SUPERVISOR A CARGO:</td>
-                    <td></td>
+                    <td>{{ $row->supervidor }}</td>
                 </tr>
                 <tr>
                     <td>FECHA Y HORA DE RESPUESTA:</td>
-                    <td></td>
+                    <td>{{ $row->response_at }}</td>
                 </tr>
                 <tr>
                     <td>ASESOR:</td>
-                    <td></td>
+                    <td>{{ $row->asesor }}</td>
                 </tr>
                 <tr>
                     <td>DNI ASESOR:</td>
-                    <td></td>
+                    <td>{{ $row->user->name }}</td>
                 </tr>
             </table>
-            <table>
+            <table width="100%">
                 <tr>
                     <td>
                         <span>VOZ CLIENTE</span>
@@ -74,12 +74,11 @@
                 <tr>
                     <td>
                         <span>FOTO DE FEEDBACK</span>
-                        <p><img src="{{ 'images/'.$row->path_full.'.'.$row->extension }}" alt=""></p>
+                        {{ $path_foto }}
+                        <p><img src="{{ $path_foto }}" alt=""></p>
                     </td>
                 </tr>
             </table>
-
-            
              
         </div>
     </main>

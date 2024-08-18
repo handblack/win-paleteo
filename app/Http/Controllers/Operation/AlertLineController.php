@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operation;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\VlAlert;
+use App\Models\VlvAlert;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -43,10 +44,18 @@ class AlertLineController extends Controller
      */
     public function show(string $id)
     {
-        $row = VlAlert::whereToken($id)->first();
+        $row = VlvAlert::whereToken($id)->first();
         abort_if(!$row,403,'Token no valido');
+        $fn = $row->path_full.'.'.$row->extension; 
+        if(File::exists(public_path('images/fotos/'.$fn) && !$row->extension)){
+            $path_foto = 'images/fotos/'.$fn;
+        }else{
+            $path_foto = 'images/no-image.png';
+        }
+        //dd($row);
         $pdf = Pdf::loadView('pdf.alert', [
-            'row'   => $row,
+            'row'       => $row,
+            'path_foto' => $path_foto,
         ]);
         $pdf->setPaper('A4','portrait');
         $fil = 'informe_' . str_pad($row->id,4,'0',STR_PAD_LEFT).date('_Ymd_his').'.pdf';
@@ -97,7 +106,7 @@ class AlertLineController extends Controller
         $row->extension     = $extension;
         $row->save();
         // ahora almacenamos la imagen en el storage
-        $imagenes= $request->file('foto')->store('images');
+        $imagenes= $request->file('foto')->store('images/fotos');
         Storage::url($imagenes);
         //Storage::disk('fotos')->put($row->path_local,  File::get($foto));
         /*
