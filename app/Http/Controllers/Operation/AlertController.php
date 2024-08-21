@@ -189,9 +189,10 @@ class AlertController extends Controller
             }
             if(isset($row[0])){
                 $user = $row[0];
-                $lead = $row[2];
-                $prg  = $row[3];
-                $age  = $row[4];
+                $dni = $row[1];
+                $lead = $row[3];
+                $prg  = $row[4];
+                $age  = $row[5];
                 $un = strtolower(trim($user).'@contact.com');
                 $line = User::whereEmail($un)
                             ->whereTeamId(1)
@@ -202,15 +203,13 @@ class AlertController extends Controller
                                 ->first();
                     if($l){
                         $line->leader_id = $l->id;
-                        $line->program   = trim($prg);
-                        $line->age       = $age;
                     }else{
                         $error++;
                         $line->leader_id = null;
-                        $line->program   = trim($prg);
-                        $line->age       = $age;
-                        
                     }
+                    $line->documentno   = trim($dni);
+                    $line->program      = trim($prg);
+                    $line->age          = $age;
                     $line->updated_by = auth()->user()->id;
                     $line->save();
                 }

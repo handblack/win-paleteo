@@ -52,20 +52,21 @@ class DownloadController extends Controller
             $sheet->setCellValue('B2', 'HORA');
             $sheet->setCellValue('C2', 'KEY');
             $sheet->setCellValue('D2', 'ASESOR');
-            $sheet->setCellValue('E2', 'DNI ASESOR');
-            $sheet->setCellValue('F2', 'CAMPAÑA');
-            $sheet->setCellValue('G2', 'NODO');
-            $sheet->setCellValue('H2', 'CLIENTE');
-            $sheet->setCellValue('I2', 'NUMERO ENTRADA');
-            $sheet->setCellValue('J2', 'INCIDENCIA');
-            $sheet->setCellValue('K2', 'TIPO INCIDENCIA');
-            $sheet->setCellValue('L2', 'MES QUE AFECTA');
-            $sheet->setCellValue('M2', 'COMENTARIO');
-            $sheet->setCellValue('N2', 'MOTIVO');
-            $sheet->setCellValue('O2', 'SUB-MOTIVO');
-            $sheet->setCellValue('P2', 'PROGRAMA');
-            $sheet->getStyle('A2:P2')->applyFromArray(['font' => ['bold' => true]]);
-            $sheet->getStyle('A2:P2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
+            $sheet->setCellValue('E2', 'USUARIO ASESOR');
+            $sheet->setCellValue('F2', 'DNI ASESOR');
+            $sheet->setCellValue('G2', 'CAMPAÑA');
+            $sheet->setCellValue('H2', 'NODO');
+            $sheet->setCellValue('I2', 'CLIENTE');
+            $sheet->setCellValue('J2', 'NUMERO ENTRADA');
+            $sheet->setCellValue('K2', 'INCIDENCIA');
+            $sheet->setCellValue('L2', 'TIPO INCIDENCIA');
+            $sheet->setCellValue('M2', 'MES QUE AFECTA');
+            $sheet->setCellValue('N2', 'COMENTARIO');
+            $sheet->setCellValue('O2', 'MOTIVO');
+            $sheet->setCellValue('P2', 'SUB-MOTIVO');
+            $sheet->setCellValue('Q2', 'PROGRAMA');
+            $sheet->getStyle('A2:Q2')->applyFromArray(['font' => ['bold' => true]]);
+            $sheet->getStyle('A2:Q2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('dcdcdc');
             $key=2;
             foreach($result as $item){
                 $key++;
@@ -75,11 +76,12 @@ class DownloadController extends Controller
                 $sheet->setCellValue("C$key", '');
                 $sheet->setCellValue("D$key", $item->lastname);
                 $sheet->setCellValue("E$key", $item->name);
-                $sheet->setCellValue("F$key", $item->program);
-                $sheet->setCellValueExplicit("G$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                $sheet->setCellValueExplicit("H$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                $sheet->setCellValueExplicit("I$key", $item->did,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-                $sheet->setCellValue("J$key", ($item->isincidencia == 'Y' ? 'SI' : 'NO'));
+                $sheet->setCellValue("F$key", $item->documentno2);
+                $sheet->setCellValue("G$key", $item->program);
+                $sheet->setCellValueExplicit("H$key", $item->nodo,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValueExplicit("I$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValueExplicit("J$key", $item->did,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValue("K$key", ($item->isincidencia == 'Y' ? 'SI' : 'NO'));
                 switch($item->incidencia_id){
                     case 1:$m = 'Emisión Incorrecta de recibos';break;
                     case 2:$m = 'Suspensión por error de sistema';break;
@@ -88,7 +90,7 @@ class DownloadController extends Controller
                     case 5:$m = 'Caída de CRM Experiencia';break;
                     default:$m='';
                 }
-                $sheet->setCellValue("K$key", $m);
+                $sheet->setCellValue("L$key", $m);
                 switch($item->month){
                     case '01':$m = 'ENE';break;
                     case '02':$m = 'FEB';break;
@@ -104,11 +106,11 @@ class DownloadController extends Controller
                     case '12':$m = 'DIC';break;
                     default:$m='';
                 }
-                $sheet->setCellValue("L$key", $m);
-                $sheet->setCellValue("M$key", $item->comment);
-                $sheet->setCellValue("N$key", $item->reason);
-                $sheet->setCellValue("O$key", $item->subreason);
-                $sheet->setCellValue("P$key", $item->program);
+                $sheet->setCellValue("M$key", $m);
+                $sheet->setCellValue("N$key", $item->comment);
+                $sheet->setCellValue("O$key", $item->reason);
+                $sheet->setCellValue("P$key", $item->subreason);
+                $sheet->setCellValue("Q$key", $item->program);
             }
             $cols = explode(',','B,C,D,E,F,G');
             foreach($cols as $col){
