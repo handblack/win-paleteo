@@ -77,6 +77,7 @@
 					<th>Asunto</th>
 					<th width="100">Estado</th>
 					<th width="120">Creado Por</th>
+                    <th></th>
 					<th width="80"></th>
                     {{--
                     --}}
@@ -98,6 +99,7 @@
                                         
                                 @endswitch                                
                             </td>
+                            <td>{{ $item->leader_id ? $item->leader->name : '' }}</td>
                             <td class="text-right text-nowrap">{{ $item->updated_by ? $item->updatedby->name : $item->createdby->name }}</td>
 							<td class="text-right text-nowrap">
                                 <a href="{{ route('alertline.show',$item->token) }}">
