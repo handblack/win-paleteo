@@ -47,8 +47,9 @@ class AlertLineController extends Controller
         $row = VlvAlert::whereToken($id)->first();
         abort_if(!$row,403,'Token no valido');
         $fn = $row->path_full.'.'.$row->extension; 
-        if(File::exists(public_path('images/fotos/'.$fn) && !$row->extension)){
-            $path_foto = 'images/fotos/'.$fn;
+        $fp = storage_path('app'. DIRECTORY_SEPARATOR .'fotos') . DIRECTORY_SEPARATOR . $fn;
+        if(File::exists($fp) && !$row->extension){
+            $path_foto = $fp;
         }else{
             $path_foto = 'images/no-image.png';
         }
