@@ -6,8 +6,8 @@
             <tr>
 
                 <td style="vertical-align: top;">
-                    <span style="font-size:14px;line-height:1.8;">
-                        <strong>Informe de Atención</strong>
+                    <span style="font-size:18px;line-height:1.8;">
+                        <strong>INFORME DE ATENCION</strong>
                     </span>
 
                 </td>
@@ -22,57 +22,57 @@
         <div class="margin-top">
             <table width="100%">
                 <tr>
-                    <td>ASUNTO EMAIL:</td>
-                    <td>{{ $row->subject }}</td>
+                    <td class="border">ASUNTO EMAIL:</td>
+                    <td class="border">{{ $row->subject }}</td>
                 </tr>
                 <tr>
-                    <td>FECHA Y HORA EMAIL:</td>
-                    <td>{{ $row->created_at }}</td>
+                    <td class="border">FECHA Y HORA EMAIL:</td>
+                    <td class="border">{{ $row->created_at }}</td>
                 </tr>
                 <tr>
-                    <td>SUPERVISOR A CARGO:</td>
-                    <td>{{ $row->supervidor }}</td>
+                    <td class="border">SUPERVISOR A CARGO:</td>
+                    <td class="border">{{ $row->supervidor }}</td>
                 </tr>
                 <tr>
-                    <td>FECHA Y HORA DE RESPUESTA:</td>
-                    <td>{{ $row->response_at }}</td>
+                    <td class="border">FECHA Y HORA DE RESPUESTA:</td>
+                    <td class="border">{{ $row->response_at }}</td>
                 </tr>
                 <tr>
-                    <td>ASESOR:</td>
-                    <td>{{ $row->asesor }}</td>
+                    <td class="border">ASESOR:</td>
+                    <td class="border">{{ $row->asesor }}</td>
                 </tr>
                 <tr>
-                    <td>DNI ASESOR:</td>
-                    <td>{{ $row->user->name }}</td>
+                    <td class="border">DNI ASESOR:</td>
+                    <td class="border">{{ $row->user->name }}</td>
                 </tr>
             </table>
             <table width="100%">
                 <tr>
-                    <td>
+                    <td class="border">
                         <span>VOZ CLIENTE</span>
                         <p>{{ $row->msg_cliente }}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="border">
                         <span>OPORTUNIDAD DE MEJORA</span>
                         <p>{{ $row->msg_mejora }}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="border">
                         <span>FORTALEZA EN LA LLAMDA</span>
                         <p>{{ $row->msg_fortaleza }}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="border">
                         <span>ACCIONES CORRECTIVAS</span>
                         <p>{{ $row->msg_acciones }}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="border">
                         <span>FOTO DE FEEDBACK</span>
                         {{ $path_foto }}
                         <p><img src="{{ $path_foto }}" alt="" style="max-width: 100%;"></p>

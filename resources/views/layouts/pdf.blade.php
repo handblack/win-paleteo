@@ -126,6 +126,10 @@
             text-align: right;
         }
 
+        .border{
+            border:1px solid black;
+        }
+
         hr {
             height: 1px;
             background-color: #dcdcdc;
