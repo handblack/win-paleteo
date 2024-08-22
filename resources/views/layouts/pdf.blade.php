@@ -128,7 +128,10 @@
 
         .border{
             border:1px solid black;
-            padding:3px;
+            padding-left:3px;
+            padding-right:3px;
+            padding-top:5px;
+            padding-bottom:5px;
         }
 
         hr {

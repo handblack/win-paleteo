@@ -5,9 +5,9 @@
         <table class="table-no-border" cellspacing="0" cellpadding="3" style="border-collapse: collapse;">
             <tr>
 
-                <td style="vertical-align: top;align:center">
+                <td style="vertical-align: top;text-align:center">
                     <span style="font-size:18px;line-height:1.8;">
-                        <strong>INFORME DE ATENCION</strong>
+                        <strong>INFORME DE ATENCION #{{ $row->id }}</strong>
                     </span>
 
                 </td>
