@@ -128,6 +128,7 @@
 
         .border{
             border:1px solid black;
+            padding:3px;
         }
 
         hr {

@@ -5,7 +5,7 @@
         <table class="table-no-border" cellspacing="0" cellpadding="3" style="border-collapse: collapse;">
             <tr>
 
-                <td style="vertical-align: top;">
+                <td style="vertical-align: top;align:center">
                     <span style="font-size:18px;line-height:1.8;">
                         <strong>INFORME DE ATENCION</strong>
                     </span>
@@ -22,8 +22,8 @@
         <div class="margin-top">
             <table width="100%">
                 <tr>
-                    <td class="border">ASUNTO EMAIL:</td>
-                    <td class="border">{{ $row->subject }}</td>
+                    <td width="50%" class="border">ASUNTO EMAIL:</td>
+                    <td width="50%" class="border">{{ $row->subject }}</td>
                 </tr>
                 <tr>
                     <td class="border">FECHA Y HORA EMAIL:</td>
@@ -49,31 +49,31 @@
             <table width="100%">
                 <tr>
                     <td class="border">
-                        <span>VOZ CLIENTE</span>
+                        <span><strong>VOZ CLIENTE</strong></span>
                         <p>{{ $row->msg_cliente }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="border">
-                        <span>OPORTUNIDAD DE MEJORA</span>
+                        <span><strong>OPORTUNIDAD DE MEJORA</strong></span>
                         <p>{{ $row->msg_mejora }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="border">
-                        <span>FORTALEZA EN LA LLAMDA</span>
+                        <span><strong>FORTALEZA EN LA LLAMDA</strong></span>
                         <p>{{ $row->msg_fortaleza }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="border">
-                        <span>ACCIONES CORRECTIVAS</span>
+                        <span><strong>ACCIONES CORRECTIVAS</strong></span>
                         <p>{{ $row->msg_acciones }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="border">
-                        <span>FOTO DE FEEDBACK</span>
+                        <span><strong>FOTO DE FEEDBACK:</strong></span>
                         {{ $path_foto }}
                         <p><img src="{{ $path_foto }}" alt="" style="max-width: 100%;"></p>
                     </td>
