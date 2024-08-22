@@ -111,8 +111,8 @@ class AlertLineController extends Controller
         $row->save();
         // ahora almacenamos la imagen en el storage
         $imagenes= $request->file('foto')->store('images/fotos');
-        Storage::url($imagenes);
-        //Storage::disk('fotos')->put($row->path_local,  File::get($foto));
+        //Storage::url($imagenes);
+        Storage::disk('fotos')->put($row->path_local,  File::get($foto));
         /*
         Storage::disk('fotos')->put($row->path_local,  File::get($foto));
         */
