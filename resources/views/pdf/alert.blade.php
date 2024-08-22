@@ -75,7 +75,7 @@
                     <td>
                         <span>FOTO DE FEEDBACK</span>
                         {{ $path_foto }}
-                        <p><img src="{{ $path_foto }}" alt=""></p>
+                        <p><img src="{{ $path_foto }}" alt="" style="max-width: 100%;"></p>
                     </td>
                 </tr>
             </table>
