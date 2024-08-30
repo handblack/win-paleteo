@@ -71,7 +71,7 @@
 @section('content')
     <div class="card">
         <div class="card-body table-responsive p-0">
-            <table class="table table-hover table-sm">
+            <table class="table table-hover table-sm" style="font-size:0.9rem;">
                 <thead>
 					<th width="185">FECHA</th>
 					<th>Asunto</th>

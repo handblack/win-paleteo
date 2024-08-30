@@ -43,6 +43,7 @@ class AlertController extends Controller
                                 }
                             })
                             */
+                            ->orderBy('id','DESC')
                             ->paginate(env('PAGINATE_MODAL',14))
                             ->withQueryString();
         session([
