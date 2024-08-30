@@ -84,7 +84,8 @@ class AlertController extends Controller
         $request->validate([
             'subject'       => ['required'],
             'source_id'     => ['required'],
-            #'user_id'       => ['required'],
+            'user_id'       => ['required'],
+            'message'       => ['required'],
         ]);
         $row = new VlAlert();
         $row->fill($request->all());
