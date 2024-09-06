@@ -169,7 +169,10 @@ class AlertController extends Controller
                     $sheet->setCellValue('H1', 'Antiguedad');
                     $sheet->getStyle('A1:H1')->applyFromArray(['font' => ['bold' => true]]);
                     $sheet->getStyle('A1:H1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
-                    $key=2;
+                    $sheet->getStyle('B1:B1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('FBFEOA');
+                    $sheet->getStyle('D1:D1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('FBFEOA');
+                    $sheet->getStyle('G1:H1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('FBFEOA');
+                    $key=1;
                     foreach($result as $item){
                         $key++;
                         $sheet->setCellValueExplicit("A$key", $item->name,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -235,8 +238,8 @@ class AlertController extends Controller
                 $user = $row[0];
                 $dni = $row[1];
                 $lead = $row[3];
-                $prg  = $row[4];
-                $age  = $row[5];
+                $prg  = $row[6];
+                $age  = $row[7];
                 $un = strtolower(trim($user).'@contact.com');
                 $line = User::whereEmail($un)
                             ->whereTeamId(1)
