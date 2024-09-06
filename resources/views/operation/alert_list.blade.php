@@ -45,16 +45,21 @@
                                     <button type="submit" class="btn btn-secondary">
                                         <i class="fas fa-search fa-fw"></i>
                                     </button>
+                                    
                                     <a href="{{ route('alert.create') }}" class="btn btn-success">
                                         <i class="far fa-plus-square fa-fw"></i>
                                     </a>
-                                    <a href="{{ route('alert.show','download') }}" class="btn btn-outline-success">
-                                        <i class="fas fa-download fa-fw"></i>
-                                    </a>
-
-                                    <a class="btn btn-outline-success" href="#" data-toggle="modal"
-                                                data-target="#exampleModal"><i class="fas fa-upload fa-fw"></i>
-                                                </a>
+                                    <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu" style="">
+                                        <a class="dropdown-item" href="{{ route('alert.show','download') }}"><i class="fas fa-download fa-fw"></i> Descargar Reporte Alerta</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-upload fa-fw"></i> Subir dimensionado</a>
+                                        <a class="dropdown-item" href="{{ route('alert.show','dimensionado') }}"><i class="fas fa-download fa-fw"></i> Descargar dimensionado</a>
+                                    </div>
+                                 
+ 
                                 </div>
                             </div>
                         </div>

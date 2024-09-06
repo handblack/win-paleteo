@@ -8,6 +8,7 @@ use App\Models\VlAlert;
 use App\Models\VlChangeLog;
 use App\Models\VlSource;
 use App\Models\VlvAlert;
+use App\Models\VlvDimensionado;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -105,8 +106,10 @@ class AlertController extends Controller
      */
     public function show(string $id)
     {
-     
-                abort_if($id!='download',403,'No se puede descargar');
+        $mod = ['download','dimensionado'];
+        abort_if(!in_array($id,$mod),403,'No se puede descargar');
+        switch($id){
+            case 'download':
                 $result = VlvAlert::all();
                 $filename = app(VlvAlert::class)->getTable() . date("_Ymd_His");
                 return response()->streamDownload(function () use ($result) {
@@ -149,6 +152,45 @@ class AlertController extends Controller
                     }
                     (new Xlsx($spreadsheet))->save('php://output');
                 }, "{$filename}.xlsx");
+                break;
+            case 'dimensionado':
+                $result = VlvDimensionado::all();
+                $filename = 'dimensionado' . date("_Ymd_His");
+                return response()->streamDownload(function () use ($result) {
+                    $spreadsheet = new Spreadsheet;
+                    $sheet       = $spreadsheet->getActiveSheet();
+                    $sheet->setCellValue('A1', 'Usuario');
+                    $sheet->setCellValue('B1', 'DNI');
+                    $sheet->setCellValue('C1', 'Nombre y apellido');
+                    $sheet->setCellValue('D1', 'Lider_Usuario');
+                    $sheet->setCellValue('E1', 'Lider_DNI');
+                    $sheet->setCellValue('F1', 'Lider_Nombres');
+                    $sheet->setCellValue('G1', 'Programa');
+                    $sheet->setCellValue('H1', 'Antiguedad');
+                    $sheet->getStyle('A1:H1')->applyFromArray(['font' => ['bold' => true]]);
+                    $sheet->getStyle('A1:H1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('E8E8E8');
+                    $key=2;
+                    foreach($result as $item){
+                        $key++;
+                        $sheet->setCellValueExplicit("A$key", $item->name,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                        $sheet->setCellValueExplicit("B$key", $item->documentno,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                        $sheet->setCellValue("C$key", $item->lastname);
+                        $sheet->setCellValueExplicit("D$key", $item->leader_name,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                        $sheet->setCellValue("E$key", $item->leader_documentno);
+                        $sheet->setCellValue("F$key", $item->leader_lastname);
+                        $sheet->setCellValue("G$key", $item->program);
+                        $sheet->setCellValue("H$key", $item->age);
+                    }
+                    $cols = explode(',','A,B,C');
+                    foreach($cols as $col){
+                        $sheet->getColumnDimension($col)->setAutoSize(true);
+                    }
+                    (new Xlsx($spreadsheet))->save('php://output');
+                }, "{$filename}.xlsx");
+                break;
+        }
+            
+            
     }
 
     /**
