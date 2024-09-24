@@ -256,7 +256,22 @@ class AlertController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $grant = auth()->user()->isgrant("{$this->grantname}_isdeleted");
+        $row = VlAlert::whereToken($id)->first();
+        if($row && $grant){
+            if($row->status == 'R'){
+                $data['status']     = 102;
+                $data['message']    = 'No se puede eliminar el registro tiene respuesta';
+            }else{
+                $data['status']     = 100;
+                $data['message']    = 'Registro eliminado';
+                $row->delete();
+            }
+        }else{
+            $data['status']     = 103;
+            $data['message']    = 'Error interno';
+        }
+        return response()->json($data, $data['status'] == 100 ? 200 : 403);
     }
 
 
