@@ -203,7 +203,23 @@ class AlertController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        abort_if(!auth()->user()->isgrant("{$this->grantname}_isgrant"),403,'Acceso restringido');
+        abort_if(!auth()->user()->isgrant("{$this->grantname}_isedit"),403,'Acceso restringido');
+        $row = VlAlert::whereToken($id)->first();
+        abort_if(!$row,403,'Token no valido');
+        $log = VlChangeLog::whereTablename(app(VlAlert::class)->getTable())
+                            ->whereRecordId($row->id)
+                            ->limit(20)
+                            ->orderBy('datelog','DESC')
+                            ->get();
+        $sou = VlSource::all();
+        return view("operation.{$this->table}_form",[
+            'mode'  => 'edit',
+            'url'   => route("{$this->table}.update",$id),
+            'row'   => $row,
+            'log'   => $log,
+            'sou'   => $sou,
+        ]);
     }
 
     /**
