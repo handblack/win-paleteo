@@ -227,7 +227,28 @@ class AlertController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        abort_if(!auth()->user()->isgrant("{$this->grantname}_isupdated"),403,'Acceso restringido');
+        $row = VlAlert::whereToken($id)->first();
+        abort_if($row->status == 'R',403,'El registro contiene respueta y esta cerrado');
+        $request->validate([
+            'identity'      => ['required'],
+            'isactive'      => ['required'],
+        ]);
+        /* Grabando LOG */
+        $l = new VlChangeLog();
+        $l->user_id     = auth()->user()->id;
+        $l->tablename   = app(VlAlert::class)->getTable();
+        $l->data_before = $row;
+        $l->record_id   = $row->id;
+        /* Datos */
+        $row->fill($request->all());
+        $row->updated_by    = auth()->user()->id;
+        $row->save();
+        /* Grabando LOG */
+        $l->data_after  = $row;
+        $l->token       = User::get_token();
+        $l->save();
+        return redirect()->route("{$this->table}.index",['q' => session("session_{$this->table}_q_search")])->with('message','Registro actualizado');
     }
 
     /**

@@ -48,12 +48,12 @@
                         <label class="mb-0">Origen</label>
                         <select name="source_id" id="" class="form-control">
                             @foreach ($sou as $item)
-                                <option value="{{ $item->id }}">{{ $item->identity }}</option>
+                                <option value="{{ $item->id }}" {{ $row->source_id == $item->id ? 'selected' : '' }}>{{ $item->identity }}</option>
                             @endforeach
                         </select>
                     </div> 
                     <div class="col-md-9">
-                        <label class="mb-0">AsuntoX</label>
+                        <label class="mb-0">Asunto</label>
                         <input type="text" class="form-control" name="subject" id="subject"
                             value="{{ old('subject', $row->subject) }}" required />
                     </div>                    
@@ -61,7 +61,9 @@
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <select name="user_id" id="user_id" class="form-control select2-user">
-
+                            @if($mode == 'edit')
+                                <option value="{{ $row->user_id }}">{{ $row->user->documetno }} - {{ $row->user->lastname }}</option>
+                            @endif
                         </select>
                     </div>  
                 </div>

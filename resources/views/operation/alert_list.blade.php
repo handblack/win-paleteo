@@ -111,7 +111,11 @@
                                     <i class="fas fa-ellipsis-v fa-fw"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('alert.edit',$item->token) }}"><i class="far fa-edit"></i> Modificar</a>
+                                    @if($item->status == 'P')
+                                        <a class="dropdown-item" href="{{ route('alert.edit',$item->token) }}"><i class="far fa-edit"></i> Modificar</a>
+                                    @else
+                                        <a class="dropdown-item disabled" href="#"><i class="far fa-edit"></i> Modificar</a>
+                                    @endif
                                     <a href="#" class="dropdown-item delete-record" data-id="{{ $item->id }}" data-url="{{ route('alert.destroy',$item->token) }}">
                                         <i class="far fa-trash-alt"></i> Eliminar</a>
                                     <div class="dropdown-divider"></div>
