@@ -107,9 +107,16 @@
                             <td>{{ $item->leader_id ? $item->leader->name : '' }}</td>
                             <td class="text-right text-nowrap">{{ $item->updated_by ? $item->updatedby->name : $item->createdby->name }}</td>
 							<td class="text-right text-nowrap">
-                                <a href="{{ route('alertline.show',$item->token) }}">
-                                    <i class="far fa-file-pdf fa-fw"></i>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v fa-fw"></i>
                                 </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('alert.edit',$item->token) }}"><i class="far fa-edit"></i> Modificar</a>
+                                    <a href="#" class="dropdown-item delete-record" data-id="{{ $item->id }}" data-url="{{ route('alert.destroy',$item->token) }}">
+                                        <i class="far fa-trash-alt"></i> Eliminar</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('alertline.show',$item->token) }}"><i class="far fa-file-pdf fa-fw"></i> Descargar Reporte</a>
+                                </div>
                             {{--
                                 <a href="{{ route('alert.edit',$item->token) }}">
                                     <i class="far fa-edit"></i>
