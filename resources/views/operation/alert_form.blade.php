@@ -62,7 +62,7 @@
                     <div class="col-md-12">
                         <select name="user_id" id="user_id" class="form-control select2-user">
                             @if($mode == 'edit')
-                                <option value="{{ $row->user_id }}">{{ $row->user->documetno }} - {{ $row->user->lastname }}</option>
+                                <option value="{{ $row->user_id }}">{{ $row->user->documentno }} - {{ $row->user->lastname }}</option>
                             @endif
                         </select>
                     </div>  
