@@ -11,6 +11,7 @@ use App\Models\VlvAlert;
 use App\Models\VlvDimensionado;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -321,6 +322,8 @@ class AlertController extends Controller
                 return redirect()->route('alert.index')->with('error', 'El archivo no tiene la estructura correcta');        
             }
         }
+        // Aqui ejecutamos los FILL para completar otros campos adicionaes en las alertas
+        DB::select('call sp_actualiza_leader()');
         return redirect()->route('alert.index')->with('message', 'Archivo cargado'.($error > 0 ? ", se encontraron {$error} inconsistencias" : ''));
     } 
 
